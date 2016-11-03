@@ -4,3 +4,8 @@
   font-weight: normal;
   src: local('Monaco'), url('Monaco.woff') format('woff');
 }
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
