@@ -33,11 +33,6 @@ body {
   100% { opacity: 0.7; }
 }
 
-::selection {
-  background: #0080FF;
-  text-shadow: none !important;
-}
-
 .offscreen {
   background: -webkit-linear-gradient(top, #000, #333);
 }
@@ -64,33 +59,10 @@ body {
 }
 
 .dropping {
-  /*background: -webkit-linear-gradient(
-    bottom,
-    rgb(209,144,23) 13%,
-    rgb(251,173,51) 57%,
-    rgb(255,208,77) 79%
-  );*/
   background: -webkit-radial-gradient(center center, contain, rgba(0,175,0,1), black) center center no-repeat;
   -webkit-background-size: 125% 125%;
 }
-/*
-.crt {
-  z-index: 50;
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  /*margin: 15px 31px 0px 32px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background: -webkit-gradient(radial, 50% 10057%, 4999, 50% 10055%, 5000, from(transparent), to(black) ) transparent no-repeat 10% 100%;
-}
-.crt.top {
-  top: -20px;
-}
-.crt.bottom {
-  -webkit-transform: rotate(180deg);
-  bottom: -20px;
-}*/
+
 .crt {
   z-index: 50;
   width: 100%;
@@ -117,36 +89,7 @@ body {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in-out;
 }
-.interlace {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: url(interlace.png) top left repeat, rgba(255,255,255,0.5);
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-  z-index: 10;
-  pointer-events: none;
-  /*border-top-left-radius: 150px 50px;
-  border-top-right-radius: 150px 50px;
-  border-bottom-left-radius: 150px 50px;
-  border-bottom-right-radius: 150px 50px;*/
-}
-.hidden {
-  display: none !important;
-}
-.dim > * {
-  opacity: 0.4;
-}
-.dim .help {
-  opacity: 1;
-}
-iframe#fsn {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border: none;
-}
+
 #container {
   padding: 1em 1.5em 1em 1em;
   text-shadow: 0 0 5px #C8C8C8;
@@ -225,131 +168,4 @@ iframe#fsn {
   font: inherit;
   border: none;
   color: inherit;
-}
-.folder {
-  color: #ffcc00;
-}
-.ls-files {
-  /*height: 45px;*/
-  /* Default, but changed by js depending on length of filename */
-  -webkit-column-width: 100px;
-  column-width: 100px;
-}
-.ls-files span {
-  cursor: pointer;
-}
-.ls-files span:hover {
-  text-decoration: underline;
-}
-button {
-  background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#F9F9F9), to(#E3E3E3));
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  color: black;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select:none;
-  user-select: none;
-  cursor: pointer;
-}
-button:not([disabled]):hover {
-  border-color: #ffcc00;
-}
-button:not([disabled]):active {
-  background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#E3E3E3), to(#F9F9F9));
-}
-button[disabled] {
-  color: #ccc;
-}
-.help {
-  font-family: 'Droid Sans', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  -webkit-box-orient: vertical;
-  -webkit-user-select: none;
-  user-select: none;
-  font-size: 10pt;
-}
-.help,
-.help > section {
-  border-radius: 10px;
-}
-.help > section {
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 3px 3px 5px rgba(0,0,0,0.6);
-  border-radius: 10px;
-  color: white;
-  position: relative;
-  width: 610px;
-}
-.help section > div:first-child {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-.help section > div:last-child {
-  padding-top: 0;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-.help > section > div {
-  background: rgba(0, 0, 0, 1);
-  padding: 20px;
-}
-.help h2 {
-  padding-bottom: 8px;
-  margin-top: 0;
-  margin-bottom: 25px;
-  border-bottom: 1px solid #fff;
-  color: #ffcc00;
-}
-.help p strong {
-  width: 60px;
-  display: inline-block;
-}
-.help #close {
-  border-radius: 20px;
-  padding: 2px 6px 2px 7px;
-  border: 2px solid #fff;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  cursor: pointer;
-  font-size: 90%;
-  font-weight: bold;
-  line-height: 17px;
-}
-.help #close:active {
-  right: 19px;
-  top: 21px;
-}
-.help .shortcuts {
-  -webkit-columns: 2;
-  columns: 2;
-}
-
-
-/* Themes */
-.cream {
-  color: black;
-  background: #fffff3;
-}
-.cream .interlace {
-  opacity: 0.1;
-}
-.cream .prompt {
-  color: purple;
-}
-.cream .cmdline {
-  color: black;
 }
