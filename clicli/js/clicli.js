@@ -1,21 +1,4 @@
-//util
 // author shimada
-var util = util || {};
-util.toArray = function(list) {
-    return Array.prototype.slice.call(list || [], 0);
-};
-
-//Get document height (cross-browser)
-// author shimada
-util.getDocHeight = function() {
-    var D = document;
-    return Math.max(
-        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
-        Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
-        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
-    );
-};
-
 function Load() {
     this.load = function(url, mixToMono, opt_callback) {
         var xhr = new XMLHttpRequest();
@@ -25,12 +8,13 @@ function Load() {
     };
 }
 
+// author shimada
 var Terminal = Terminal || function(containerId) {
     window.URL = window.URL || window.webkitURL;
     window.requestFileSystem = window.requestFileSystem ||
         window.webkitRequestFileSystem;
 
-    const VERSION_ = '1.0.0';
+
     const CMDS_ = [
         'ls', 'cd', 'mv', 'rm', 'cp', 'clear', 'man', 'less', 'pwd', 'open',
         'exit', 'su', 'mu'
@@ -53,18 +37,39 @@ var Terminal = Terminal || function(containerId) {
     var interlace_ = document.querySelector('.interlace');
     var load = new Load();
 
+    //aouthor shimada
+    cmdLine_.addEventListener("keydown", newCommand, false);
 
+    // aouthor shimada
+    function newCommand(e) {
+        if (e.keyCode == 13) {
+            puressEnterKey(this);
+            this.value = "";
+        }
+    }
+
+    // aouthor shimada
+    function puressEnterKey(node) {
+        var line = node.parentNode.parentNode.cloneNode(true);
+        line.removeAttribute('id');
+        line.classList.add('line');
+        var input = line.querySelector('input.cmdline');
+        input.autofocus = false;
+        input.readOnly = true;
+        output_.appendChild(line);
+    }
+
+    // aouthor shimada
     function output(html) {
         output_.insertAdjacentHTML('beforeEnd', html);
         //output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
 
-
+    // aouthor shimada
     return {
         initFS: function(persistent, size) {
-            output('<div>Welcome to ' + document.title +
-                ' (v' + VERSION_ + ')</div>');
+            output('<div>Welcome to ' + document.title + '</div>');
             output((new Date()).toLocaleString());
             output('<div>Documentation: type "help"</div>');
             output('<div>Swich user to “su”</div>');
@@ -81,8 +86,6 @@ var Terminal = Terminal || function(containerId) {
                 type_ = type;
                 size_ = size;
 
-                // If we get this far, attempt to create a folder to test if the
-                // --unlimited-quota-for-files fag is set.
                 cwd_.getDirectory('testquotaforfsfolder', {
                     create: true
                 }, function(dirEntry) {
@@ -126,5 +129,4 @@ var Terminal = Terminal || function(containerId) {
             });
         },
     };
-
 };
