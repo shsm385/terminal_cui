@@ -7,26 +7,20 @@ function Load() {
         xhr.send();
     };
 }
-
 // author shimada
 var Terminal = Terminal || function(containerId) {
     window.URL = window.URL || window.webkitURL;
     window.requestFileSystem = window.requestFileSystem ||
         window.webkitRequestFileSystem;
 
-
     const CMDS_ = [
         'ls', 'cd', 'mv', 'rm', 'cp', 'clear', 'man', 'less', 'pwd', 'open',
         'exit', 'su', 'mu'
     ];
-
     var fs_ = null;
     var cwd_ = null;
-    var history_ = [];
-    var histpos_ = 0;
-    var histtemp_ = 0;
-
     var container_ = document.getElementById(containerId);
+
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',
         '<div class="prompt">$&gt;</div><div><input class="cmdline" autofocus /></div>',
@@ -37,27 +31,16 @@ var Terminal = Terminal || function(containerId) {
     var interlace_ = document.querySelector('.interlace');
     var load = new Load();
 
-    //aouthor shimada
+    // aouthor shimada
+    // keydown event
     cmdLine_.addEventListener("keydown", newCommand, false);
 
     // aouthor shimada
+    // runnninng command
     function newCommand(e) {
-        if (e.keyCode == 13) {
-            puressEnterKey(this);
-            this.value = "";
-        }
+      runCommand(e,this,output_,interlace_,cmdLine_);
     }
 
-    // aouthor shimada
-    function puressEnterKey(node) {
-        var line = node.parentNode.parentNode.cloneNode(true);
-        line.removeAttribute('id');
-        line.classList.add('line');
-        var input = line.querySelector('input.cmdline');
-        input.autofocus = false;
-        input.readOnly = true;
-        output_.appendChild(line);
-    }
 
     // aouthor shimada
     function output(html) {
