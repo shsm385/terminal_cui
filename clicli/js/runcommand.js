@@ -1,18 +1,24 @@
 // aouthor shimada
-function runCommand(e, node, output_, interlace_,cmdLine_) {
+function runCommand(e, node, output_, interlace_, cmdLine_,CMDS_) {
     var cmd = '';
+    var args_first = '';
     if (e.keyCode == 13) {
         output_.appendChild(puressEnterKey(node));
 
         if (node.value && node.value.trim()) {
-            var args = node.value.split(' ').filter(function(val, i) {
+            args = node.value.split(' ').filter(function(val, i) {
                 return val;
             });
             cmd = args[0].toLowerCase();
+            args_first = args[1];
             args = args.splice(1);
         }
 
         switch (cmd) {
+            case 'man':
+                var temp = man(args_first,CMDS_);
+                output(temp);
+                break;
             case 'clear':
                 clear(node, output_);
                 return;

@@ -38,7 +38,7 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // runnninng command
     function newCommand(e) {
-      runCommand(e,this,output_,interlace_,cmdLine_);
+        runCommand(e, this, output_, interlace_, cmdLine_, CMDS_);
     }
 
 
@@ -95,19 +95,6 @@ var Terminal = Terminal || function(containerId) {
                 cwd_.getFile(file.name, {
                     create: true,
                     exclusive: true
-                }, function(fileEntry) {
-
-                    // Tell FSN visualizer we've added a file.
-                    if (fsn_) {
-                        fsn_.contentWindow.postMessage({
-                            cmd: 'touch',
-                            data: file.name
-                        }, location.origin);
-                    }
-
-                    fileEntry.createWriter(function(fileWriter) {
-                        fileWriter.write(file);
-                    }, errorHandler_);
                 }, errorHandler_);
             });
         },
