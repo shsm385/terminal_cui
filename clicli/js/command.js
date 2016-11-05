@@ -18,19 +18,39 @@ function clear(input, output_, interlace_) {
 }
 
 // aouthor shimada
-function man(args_first,CMDS_){
-  var describe = '';
-  switch (args_first) {
-    case 'clear':
-      describe = 'clear - clear the terminal screen';
-      return describe;
-    default:
-      if(args_first === undefined){
-      describe = CMDS_.join('  ');
-      return describe;
-    }else{
-      describe = 'What manual page do you want?';
-      return describe;
+function man(args_first, CMDS_) {
+    switch (args_first) {
+        case 'ls':
+            return 'ls - list directory and store';
+        case 'cd':
+            return 'cd - change directory';
+        case 'mv':
+            return 'mv - mv -- move files';
+        case 'rm':
+            return 'rm - delete favorite';
+        case 'cp':
+            return 'cp - registration favorite';
+        case 'clear':
+            return 'clear - clear the terminal screen';
+        case 'man':
+            return 'man - format and display the on-line manual pages';
+        case 'less':
+            return 'less - display store information';
+        case 'pwd':
+            return 'pwd - return working directory name';
+        case 'open':
+            return 'open storename - open the shop information site';
+        case 'exit':
+            return 'exit - logout';
+        case 'su':
+            return 'su - switching and sign in user';
+        case 'mu':
+            return 'mu - sign up user account';
+        default:
+            if (args_first === undefined) {
+                return CMDS_.join('  ');
+            } else {
+                return 'What manual page do you want?';
+            }
     }
-  }
 }
