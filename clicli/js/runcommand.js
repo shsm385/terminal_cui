@@ -20,8 +20,13 @@ function runCommand(e, node, output_, interlace_, cmdLine_,CMDS_) {
                 output(temp);
                 break;
             case 'clear':
+                if(args_first === undefined){
                 clear(node, output_);
                 return;
+              }else{
+                output('option not found');
+              }
+              break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
