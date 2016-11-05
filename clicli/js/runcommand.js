@@ -1,5 +1,5 @@
 // aouthor shimada
-function runCommand(e, node, output_, interlace_, cmdLine_,CMDS_) {
+function runCommand(e, node, output_, interlace_, cmdLine_, CMDS_) {
     var cmd = '';
     var args_first = '';
     if (e.keyCode == 13) {
@@ -16,17 +16,17 @@ function runCommand(e, node, output_, interlace_, cmdLine_,CMDS_) {
 
         switch (cmd) {
             case 'man':
-                var temp = man(args_first,CMDS_);
+                var temp = man(args_first, CMDS_);
                 output(temp);
                 break;
             case 'clear':
-                if(args_first === undefined){
-                clear(node, output_);
-                return;
-              }else{
-                output('option not found');
-              }
-              break;
+                if (args_first === undefined) {
+                    clear(node, output_);
+                    return;
+                } else {
+                    output('option not found');
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
