@@ -45,6 +45,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 }
                 var uname = document.querySelector('#uname');
                 break;
+            case 'su':
+                console.log('su test');
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
