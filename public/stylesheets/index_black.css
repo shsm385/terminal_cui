@@ -14,8 +14,6 @@ body {
     font-family: Inconsolata, monospace;
     color: white;
     background: black;
-    /*background: -webkit-radial-gradient(center center, contain, rgba(0,150,0,1), black) center center no-repeat, black; */
-    /*-webkit-background-size: 110% 100%;*/
 }
 
 
@@ -92,14 +90,6 @@ body {
 
 #container {
   padding: 1em 1.5em 1em 1em;
-  /*text-shadow: 0 0 5px #C8C8C8;*/
-  /*overflow: hidden;
-  white-space: nowrap;*/
-
-  /*box-shadow: 10px 5px 20px rgba(255,255,255,0.2) inset,
-              -10px -5px 20px rgba(255,255,255,0.2) inset;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);*/
 }
 #container output {
   clear: both;
@@ -149,7 +139,7 @@ body {
 }
 .prompt {
   white-space: nowrap;
-  color: #ffcc00; 
+  color: #000000;
   margin-right: 7px;
   display: -webkit-box;
   -webkit-box-pack: center;
@@ -167,5 +157,5 @@ body {
   width: 100%;
   font: inherit;
   border: none;
-  color: inherit;
+  /*color: inherit;*/
 }
