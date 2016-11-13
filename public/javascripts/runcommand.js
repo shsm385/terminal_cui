@@ -27,27 +27,24 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     clear(node, output_);
                     return;
                 } else {
-                    output('option not found');
+                    output('ilegal input');
                 }
                 break;
             case 'sl':
-                document.getElementById("style1").href = 'public/stylesheets/index_black.css';
-                output('<video id="sl" autoplay width="100%" height="100%"　poster="./public/figures/zakimot.jpg"><source src="./public/models/movies/sl.mp4" type="video/mp4" /></video>');
-                var video = document.getElementById('sl');
-                video.addEventListener('ended', function() {
-                    var node_sl = document.getElementById('sl');
-                    node_sl.parentNode.removeChild(node_sl);
-                    document.getElementById("style1").href = 'public/stylesheets/index.css';
-                }, false);
+                if (args_first === undefined) {
+                    sl(output_,cmdLine_);
+                } else {
+                    output('ilegal input');
+                }
                 break;
             case 'mu':
-		if(argslen == 1){
-		    mu(args_first, output_, cmdLine_);
-		}else{
-		    output('ilegal input');
-		}
-		var uname = document.querySelector('#uname');
-		break;
+                if (argslen == 1) {
+                    mu(args_first, output_, cmdLine_);
+                } else {
+                    output('ilegal input');
+                }
+                var uname = document.querySelector('#uname');
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
