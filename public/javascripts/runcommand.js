@@ -11,6 +11,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             });
             cmd = args[0].toLowerCase();
             args_first = args[1];
+            argslen = args.length;
             args = args.splice(1);
         }
 
@@ -39,6 +40,14 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     document.getElementById("style1").href = 'public/stylesheets/index.css';
                 }, false);
                 break;
+            case 'mu':
+		if(argslen == 1){
+		    mu(args_first, output_, cmdLine_);
+		}else{
+		    output('ilegal input');
+		}
+		var uname = document.querySelector('#uname');
+		break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
