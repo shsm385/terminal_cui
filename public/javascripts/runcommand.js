@@ -44,13 +44,6 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     output('CLICLI: ' + cmd + ': command not found');
                 }
                 break;
-
-                if (flag === false) {
-                    console.log("bbb");
-                    document.getElementById("style1").href = 'public/stylesheets/index.css';
-                    flag = true;
-                }
-
         }
         node.value = '';
     }
