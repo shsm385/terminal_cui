@@ -64,7 +64,7 @@ function mu(args_first, output_){
     cmdLine_.style.display="none";
     var uname = '<div id="uname"><div class="input-uname" style="display: inline;">user name:<div style="display: inline;"><input class="cmdline" style="display: inline" /></div></div></div>';
     var pass = '<div id="pass">pass:</div>';
-    output_.insertAdjacentHTL("beforeEnd", uname);
+    output_.insertAdjacentHTML("beforeEnd", uname);
     var uname_ = output_.querySelector('#uname');
     uname_.addEventListener("keydown", dosome, false);
     document.querySelector('#uname .cmdline').focus();
