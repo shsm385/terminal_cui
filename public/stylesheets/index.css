@@ -149,7 +149,7 @@ body {
 }
 .prompt {
   white-space: nowrap;
-  color: #ffcc00; 
+  color: #01ff01; 
   margin-right: 7px;
   display: -webkit-box;
   -webkit-box-pack: center;
@@ -169,3 +169,16 @@ body {
   border: none;
   color: inherit;
 }
+.input-uname {
+  white-space: nowrap;
+  margin-right: 7px;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-orient: vertical;
+  display: box;
+  box-pack: center;
+  box-orient: vertical;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
