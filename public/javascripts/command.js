@@ -34,8 +34,8 @@ function man(args_first, CMDS_) {
             return 'clear - clear the terminal screen';
         case 'man':
             return 'man - format and display the on-line manual pages';
-        case 'less':
-            return 'less - display store information';
+        case 'cat':
+            return 'cat - display store information';
         case 'pwd':
             return 'pwd - return working directory name';
         case 'open':
@@ -46,6 +46,8 @@ function man(args_first, CMDS_) {
             return 'su - switching and sign in user';
         case 'mu':
             return 'mu - sign up user account';
+        case 'sl':
+            return 'sl - runninng SL';
         default:
             if (args_first === undefined) {
                 return CMDS_.join('  ');

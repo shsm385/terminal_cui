@@ -28,7 +28,7 @@ var Terminal = Terminal || function(containerId) {
     ].join(''));
     var cmdLine_ = container_.querySelector('#input-line .cmdline');
     var output_ = container_.querySelector('output');
-    var interlace_ = document.querySelector('.interlace');
+    // var interlace_ = document.querySelector('.interlace');
     var load = new Load();
 
     // aouthor shimada
@@ -38,7 +38,7 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // runnninng command
     function newCommand(e) {
-        runCommand(e, this, output_, interlace_, cmdLine_, CMDS_);
+        runCommand(e, this, output_, cmdLine_, CMDS_);
     }
 
 
