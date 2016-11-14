@@ -16,6 +16,7 @@ util.getDocHeight = function() {
     );
 };
 
+// aouthor shimada
 function getCSV() {
     var req = new XMLHttpRequest();
     req.open("get", "./public/models/csv/osaka.csv", true);
@@ -25,6 +26,7 @@ function getCSV() {
     };
 }
 
+// aouthor shimada
 function convertCSVtoArray(str) {
     var result = [];
     var tmp = str.split("\n");
