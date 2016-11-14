@@ -149,7 +149,7 @@ body {
 }
 .prompt {
   white-space: nowrap;
-  color: #01ff01; 
+  color: #01ff01;
   margin-right: 7px;
   display: -webkit-box;
   -webkit-box-pack: center;
@@ -181,4 +181,3 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
-
