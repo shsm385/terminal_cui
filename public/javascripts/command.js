@@ -139,14 +139,15 @@ function mu(args_first, output_) {
         }
     }
     function getValue(node){
-        if (node.value && node.value.trim()) {
+        //if (node.value && node.value.trim()) {
             var args = node.value;
-            if(args.match(/\W/)){
+            console.log(args);
+            if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""){
                 output_.insertAdjacentHTML('beforeEnd', 'ilegal input');
                 return "false";
             }else{
                 return args;
             }
-        }
+        //}
     }
 }
