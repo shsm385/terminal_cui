@@ -60,13 +60,14 @@ function man(args_first, CMDS_) {
 // author ito
 // function runninng sl
 function sl(output_,cmdLine_) {
-    cmdLine_.style.display = "none";
+    var inputLine_ = document.querySelector('#input-line');
+    inputLine_.style.display = "none";
     output('<video id="sl" autoplay width="100%" height="100%"　poster="./public/figures/zakimot.jpg"><source src="./public/models/movies/sl.mp4" type="video/mp4" /></video>');
     var video = document.getElementById('sl');
     video.addEventListener('ended', function() {
         var node_sl = document.getElementById('sl');
         node_sl.parentNode.removeChild(node_sl);
-        cmdLine_.style.display = "";
+        inputLine_.style.display = "";
         document.querySelector('#input-line .cmdline').focus();
     }, false);
 
@@ -82,25 +83,40 @@ function sl(output_,cmdLine_) {
 function mu(args_first, output_) {
     var cmdLine_ = document.querySelector('#input-line');
     cmdLine_.style.display = "none";
-    var uname = '<div id="uname"><div class="input-uname" style="display: inline;">user name:<div style="display: inline;"><input class="cmdline" style="display: inline" /></div></div></div>';
-    var pass = '<div id="pass">pass:</div>';
+    var uname = '<div id="uname"><div class="input-uname" style="display: inline;">user name:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+    //var pass = '<div id="pass">pass:</div>';
     output_.insertAdjacentHTML("beforeEnd", uname);
     var uname_ = output_.querySelector('#uname');
     uname_.addEventListener("keydown", dosome, false);
-    document.querySelector('#uname .cmdline').focus();
+    var inputName_ = uname_.querySelector('.cmdline');
+    inputName_.focus();
 
     function dosome(e) {
         if (e.keyCode == 13) {
-            document.querySelector('#uname .input-uname').insertAdjacentHTML('beforeEnd', '<div></div>');
-            var pass = '<div id="pass">pass:</div>';
-            document.querySelector('output').insertAdjacentHTML('beforeEnd', pass);
-            var inputName_ = document.querySelector('#uname .cmdline');
+            //document.querySelector('#uname .input-uname').insertAdjacentHTML('beforeEnd', '<div></div>');
+            var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+            output_.insertAdjacentHTML('beforeEnd', pass);
             inputName_.readOnly = true;
             inputName_.autofocus = false;
-            document.querySelector('#uname').removeAttribute('id');
-            cmdLine_.style.display = "";
-            document.querySelector('#input-line .cmdline').focus();
-            return;
-        }
+            var pass_ = document.querySelector('#pass');
+            pass_.addEventListener("keydown", dopass, false);
+            var inputPass_ = pass_.querySelector('.cmdline')
+            inputPass_.focus();
+            uname_.removeAttribute('id');
+            uname_.classList.add('line');
+            //cmdLine_.style.display = "";
+            //document.querySelector('#input-line .cmdline').focus();
+            function dopass(e){
+                if(e.keyCode == 13){
+                    output_.insertAdjacentHTML('beforeEnd', '<div>not ilegal</div>');
+                    inputPass_.readOnly = true;
+                    inputPass_.autofocus = false;
+                    cmdLine_.style.display = "";
+                    pass_.removeAttribute('id');
+                    pass_.classList.add('line');
+                    document.querySelector('#input-line .cmdline').focus();
+                }
+            }
+       }
     }
 }
