@@ -13,8 +13,10 @@ app.use('/public', express.static('public'));
 // ルーティング設定
 app.use('/', require('./routes/index.js'));
 
+//MongoDBのRESTfulAPI用のルーティング
+app.use('/api', require('./routes/api.js'));
+
 // サーバーをポート 3000 で起動
 app.listen(3000);
-
 // アプリケーション開始ログ
 console.log('Server running at http://localhost:3000');
