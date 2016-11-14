@@ -93,30 +93,60 @@ function mu(args_first, output_) {
 
     function dosome(e) {
         if (e.keyCode == 13) {
-            //document.querySelector('#uname .input-uname').insertAdjacentHTML('beforeEnd', '<div></div>');
-            var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
-            output_.insertAdjacentHTML('beforeEnd', pass);
-            inputName_.readOnly = true;
-            inputName_.autofocus = false;
-            var pass_ = document.querySelector('#pass');
-            pass_.addEventListener("keydown", dopass, false);
-            var inputPass_ = pass_.querySelector('.cmdline')
-            inputPass_.focus();
-            uname_.removeAttribute('id');
-            uname_.classList.add('line');
-            //cmdLine_.style.display = "";
-            //document.querySelector('#input-line .cmdline').focus();
-            function dopass(e){
-                if(e.keyCode == 13){
-                    output_.insertAdjacentHTML('beforeEnd', '<div>not ilegal</div>');
-                    inputPass_.readOnly = true;
-                    inputPass_.autofocus = false;
-                    cmdLine_.style.display = "";
-                    pass_.removeAttribute('id');
-                    pass_.classList.add('line');
-                    document.querySelector('#input-line .cmdline').focus();
+            var name = getValue(inputName_);
+            if(name!="false"){
+                var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+                output_.insertAdjacentHTML('beforeEnd', pass);
+                inputName_.readOnly = true;
+                inputName_.autofocus = false;
+                var pass_ = document.querySelector('#pass');
+                pass_.addEventListener("keydown", dopass, false);
+                var inputPass_ = pass_.querySelector('.cmdline')
+                inputPass_.focus();
+                uname_.removeAttribute('id');
+                uname_.classList.add('line');
+                //cmdLine_.style.display = "";
+                //document.querySelector('#input-line .cmdline').focus();
+                function dopass(e){
+                    if(e.keyCode == 13){
+                        var pwd = getValue(inputPass_);
+                        if(pwd != "false"){
+                            output_.insertAdjacentHTML('beforeEnd', '<div>user name:'+name+', pass:'+pwd+'</div>');
+                            inputPass_.readOnly = true;
+                            inputPass_.autofocus = false;
+                            cmdLine_.style.display = "";
+                            pass_.removeAttribute('id');
+                            pass_.classList.add('line');
+                            document.querySelector('#input-line .cmdline').focus();
+                        }else{
+                            inputPass_.readOnly = true;
+                            inputPass_.autofocus = false;
+                            pass_.removeAttribute('id');
+                            pass_.classList.add('line');
+                            cmdLine_.style.display = "";
+                            document.querySelector('#input-line .cmdline').focus();
+                        }
+                    }
                 }
+            }else{
+                inputName_.readOnly = true;
+                inputName_.autofocus = false;
+                uname_.removeAttribute('id');
+                uname_.classList.add('line');
+                cmdLine_.style.display = "";
+                document.querySelector('#input-line .cmdline').focus();
             }
-       }
+        }
+    }
+    function getValue(node){
+        if (node.value && node.value.trim()) {
+            var args = node.value;
+            if(args.match(/\W/)){
+                output_.insertAdjacentHTML('beforeEnd', 'ilegal input');
+                return "false";
+            }else{
+                return args;
+            }
+        }
     }
 }
