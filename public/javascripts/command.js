@@ -95,10 +95,11 @@ function mu(args_first, output_) {
         if (e.keyCode == 13) {
             var name = getValue(inputName_);
             if(name!="false"){
-                var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+                var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password" /></div></div></div>';
                 output_.insertAdjacentHTML('beforeEnd', pass);
                 inputName_.readOnly = true;
                 inputName_.autofocus = false;
+                //inputName_.diable = true;
                 var pass_ = document.querySelector('#pass');
                 pass_.addEventListener("keydown", dopass, false);
                 var inputPass_ = pass_.querySelector('.cmdline')
@@ -111,7 +112,8 @@ function mu(args_first, output_) {
                     if(e.keyCode == 13){
                         var pwd = getValue(inputPass_);
                         if(pwd != "false"){
-                            output_.insertAdjacentHTML('beforeEnd', '<div>user name:'+name+', pass:'+pwd+'</div>');
+                            //output_.insertAdjacentHTML('beforeEnd', '<div>user name:'+name+', pass:'+pwd+'</div>');
+                            registerUser(name,pwd);
                             inputPass_.readOnly = true;
                             inputPass_.autofocus = false;
                             cmdLine_.style.display = "";
@@ -141,13 +143,41 @@ function mu(args_first, output_) {
     function getValue(node){
         //if (node.value && node.value.trim()) {
             var args = node.value;
-            console.log(args);
-            if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""){
+            //console.log(args);
+            if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""||args.length < 4){
                 output_.insertAdjacentHTML('beforeEnd', 'ilegal input');
                 return "false";
             }else{
                 return args;
             }
         //}
+    }
+    function registerUser(uname, pass){
+        var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
+        var flag = -1;
+        $.get(requestURL,
+            function(data){
+                //console.log(data);
+                for(var i = 0; i < data.length; i++){
+                    if(data[i].userName == uname){
+                        flag = 1;
+                        output_.insertAdjacentHTML('beforeEnd','<div>user name:'+uname+' is already exist</div>');
+                        break;
+                    }else{
+                        flag = 0;
+                    }
+                }
+                if(flag == 0){
+                    $.post(requestURL,
+                        {userName:uname,pass:pass}//,
+                        //function(data){
+                        //    console.log(data);
+                        //},
+                        //"html"
+                    );
+                }
+            },
+            "json"
+        );
     }
 }
