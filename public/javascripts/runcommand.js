@@ -27,21 +27,21 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     clear(node, output_);
                     return;
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 break;
             case 'sl':
                 if (args_first === undefined) {
                     sl(output_,cmdLine_);
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 break;
             case 'mu':
                 if (argslen == 1) {
                     mu(args_first, output_, cmdLine_);
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 var uname = document.querySelector('#uname');
                 break;
