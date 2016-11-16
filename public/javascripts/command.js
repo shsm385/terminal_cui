@@ -57,6 +57,7 @@ function man(args_first, CMDS_) {
     }
 }
 
+// author shimada
 // author ito
 // function runninng sl
 function sl(output_,cmdLine_) {
