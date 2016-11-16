@@ -1,5 +1,5 @@
 //aouthor shimada
-function puressEnterKey(node) {
+function pressEnterKey(node) {
     var line = node.parentNode.parentNode.cloneNode(true);
     line.removeAttribute('id');
     line.classList.add('line');

@@ -15,7 +15,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             args = args.splice(1);
         }
 
-        output_.appendChild(puressEnterKey(node));
+        output_.appendChild(pressEnterKey(node));
 
         switch (cmd) {
             case 'man':
