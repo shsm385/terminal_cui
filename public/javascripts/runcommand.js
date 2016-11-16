@@ -19,9 +19,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             argslen = args.length;
             args = args.splice(1);
         }
-
+        
         output_.appendChild(pressEnterKey(node));
-
+        console.log(before);
         switch (cmd) {
             case 'man':
                 var temp = man(args_first, CMDS_);
@@ -30,7 +30,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             case 'clear':
                 if (args_first === undefined) {
                     clear(node, output_);
-                    return;
+                    //return;
                 } else {
                     output('illegal input');
                 }
@@ -57,6 +57,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     output('illegal input');
                 }
                 break;
+            case 'cal':
+                cal(output_);
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
@@ -69,12 +72,16 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     }
     // author ito
     // get history when push up key
-    if(e.keyCode == 38 && upCnt < cmdCnt){ 
+    if(e.keyCode == 38 && upCnt < cmdCnt){
+        console.log(upCnt);
+        console.log(cmdCnt); 
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
     }
     if(e.keyCode == 40 && upCnt >= 0){
+        console.log(upCnt);
+        console.log(cmdCnt);
         upCnt--;
         if(upCnt >= 0){
             cmdLine_.value = before[cmdCnt - upCnt];
