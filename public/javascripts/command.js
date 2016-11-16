@@ -169,11 +169,7 @@ function mu(args_first, output_) {
                 }
                 if(flag == 0){
                     $.post(requestURL,
-                        {userName:uname,pass:pass}//,
-                        //function(data){
-                        //    console.log(data);
-                        //},
-                        //"html"
+                        {userName:uname,pass:pass}
                     );
                 }
             },
