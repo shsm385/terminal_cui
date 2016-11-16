@@ -2,8 +2,13 @@
 function runCommand(e, node, output_, cmdLine_, CMDS_) {
     var cmd = '';
     var args_first = '';
-
+    var before = sessionStorage.beforeCmd.split(",");
+    var cmdCnt = sessionStorage.cmdCount;
+    var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
+        cmdCnt++;
+        sessionStorage.upCount = 0;
+        before.push(cmdLine_.value);
 
         if (node.value && node.value.trim()) {
             args = node.value.split(' ').filter(function(val, i) {
@@ -45,6 +50,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 }
                 var uname = document.querySelector('#uname');
                 break;
+            case 'history':
+                if (argslen == 1) {
+                    history(output_);
+                }else{
+                    output('illegal input');
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
@@ -52,8 +64,25 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 break;
         }
         node.value = '';
+        sessionStorage.beforeCmd = before;;
+        sessionStorage.cmdCount = cmdCnt;
     }
-
+    // author ito
+    // get history when push up key
+    if(e.keyCode == 38 && upCnt < cmdCnt){ 
+        cmdLine_.value = before[cmdCnt - upCnt];
+        upCnt++;
+        sessionStorage.upCount = upCnt;
+    }
+    if(e.keyCode == 40 && upCnt >= 0){
+        upCnt--;
+        if(upCnt >= 0){
+            cmdLine_.value = before[cmdCnt - upCnt];
+        }else{
+            cmdLine_.value = "";
+        }
+        sessionStorage.upCount = upCnt;
+    }
     // aouthor shimada
     function output(html) {
         output_.insertAdjacentHTML('beforeEnd', html);
