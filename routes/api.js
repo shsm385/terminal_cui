@@ -24,7 +24,6 @@ router.use(function(req, res, next) {
 router.route('/users')
 // ユーザの作成 (POST http://localhost:3000/api/users)
     .post(function(req, res) {
-
         // 新しいユーザのモデルを作成する．
         var user = new User();
 
