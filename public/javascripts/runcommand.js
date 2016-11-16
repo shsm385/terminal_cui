@@ -74,7 +74,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     // get history when push up key
     if(e.keyCode == 38 && upCnt < cmdCnt){
         console.log(upCnt);
-        console.log(cmdCnt); 
+        console.log(cmdCnt);
+        if(upCnt < 0)upCnt++; 
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
