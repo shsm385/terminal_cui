@@ -1,5 +1,5 @@
 //aouthor shimada
-function puressEnterKey(node) {
+function pressEnterKey(node) {
     var line = node.parentNode.parentNode.cloneNode(true);
     line.removeAttribute('id');
     line.classList.add('line');
@@ -145,7 +145,7 @@ function mu(args_first, output_) {
             var args = node.value;
             //console.log(args);
             if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""||args.length < 4){
-                output_.insertAdjacentHTML('beforeEnd', 'ilegal input');
+                output_.insertAdjacentHTML('beforeEnd', 'illegal input');
                 return "false";
             }else{
                 return args;
