@@ -20,7 +20,12 @@ var Terminal = Terminal || function(containerId) {
     var fs_ = null;
     var cwd_ = null;
     var container_ = document.getElementById(containerId);
-
+    var beforeCmd = [""];
+    var cmdCount = 0;
+    var upCount = 0;
+    sessionStorage.beforeCmd = beforeCmd;
+    sessionStorage.cmdCount = cmdCount;
+    sessionStorage.upCount = upCount;
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',
         '<div class="prompt">$&gt;</div><div><input class="cmdline" autofocus /></div>',
