@@ -177,3 +177,12 @@ function mu(args_first, output_) {
         );
     }
 }
+
+// author ito
+// show history function
+function history(output_){
+    var comands = sessionStorage.beforeCmd.split(",");
+    for(var i = 0; i < comands.length; i++){
+        output_.insertAdjacentHTML('beforeEnd','<div>'+comands[i]+'</div>');
+    }
+}

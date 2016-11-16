@@ -50,6 +50,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 }
                 var uname = document.querySelector('#uname');
                 break;
+            case 'history':
+                if (argslen == 1) {
+                    history(output_);
+                }else{
+                    output('illegal input');
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
