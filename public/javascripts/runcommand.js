@@ -6,10 +6,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     var cmdCnt = sessionStorage.cmdCount;
     var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
-        cmdCnt++;
         sessionStorage.upCount = 0;
-        before.push(cmdLine_.value);
-
+        if(cmdLine_.value != ""){
+            before.push(cmdLine_.value);
+            cmdCnt++;
+        }
         if (node.value && node.value.trim()) {
             args = node.value.split(' ').filter(function(val, i) {
                 return val;
@@ -21,7 +22,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
         }
         
         output_.appendChild(pressEnterKey(node));
-        console.log(before);
+        //console.log(before);
         switch (cmd) {
             case 'man':
                 var temp = man(args_first, CMDS_);
@@ -73,16 +74,16 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     // author ito
     // get history when push up key
     if(e.keyCode == 38 && upCnt < cmdCnt){
-        console.log(upCnt);
-        console.log(cmdCnt);
+        //console.log(upCnt);
+        //console.log(cmdCnt);
         if(upCnt < 0)upCnt++; 
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
     }
     if(e.keyCode == 40 && upCnt >= 0){
-        console.log(upCnt);
-        console.log(cmdCnt);
+        //console.log(upCnt);
+        //console.log(cmdCnt);
         upCnt--;
         if(upCnt >= 0){
             cmdLine_.value = before[cmdCnt - upCnt];
