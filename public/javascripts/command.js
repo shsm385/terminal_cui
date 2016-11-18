@@ -186,7 +186,7 @@ function su(args_first, output_) {
   console.log(userName);
   var cmdLine_ = document.querySelector('#input-line');
   cmdLine_.style.display = "none";
-  var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+  var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password"/></div></div></div>';
   //var pass = '<div id="pass">pass:</div>';
   output_.insertAdjacentHTML("beforeEnd", pass);
   var pass_ = output_.querySelector('#pass');
@@ -214,7 +214,6 @@ function su(args_first, output_) {
       function(data){
         for(var i = 0; i < data.length; i++){
           if(data[i].userName == userName){
-            flag = 0;
             if(data[i].pass == pass){
               console.log("exist and correct pass!");
               flag = 1;
@@ -222,10 +221,10 @@ function su(args_first, output_) {
             }
           }
         }
-        if(flag = -1){
+        if(flag == -1){
           output_.insertAdjacentHTML('beforeEnd','<div>su: Authentication failure</div>');
         }
-        else if (flag = 1){
+        else if (flag == 1){
           output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
         }
       },
