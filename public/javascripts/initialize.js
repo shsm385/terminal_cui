@@ -35,29 +35,6 @@ function csv2Array(filePath) {
     return csvData;
 }
 
-// aouthor shimada
-function createPath(str) {
-    var dir = {
-        root: {
-            name: '/',
-            osaka: {
-                name: "大阪",
-            }
-        }
-    };
-    var temp = {};
-    for (var i = 0; i < 4; i++) {
-        for (var j = 2; j < 4; j++) {
-            if(j == 3){
-                dir.root.osaka[str[i][j-1]] = temp;
-                dir.root.osaka[str[i][j-1]][str[i][j]] = {};
-                dir.root.osaka[str[i][j-1]][str[i][j]].name = str[i][j];
-            }
-        }
-    }
-      console.log(dir);
-    return dir;
-}
 
 // Path作成の実行
 createPath(csv2Array("./public/models/csv/osaka.csv"));
