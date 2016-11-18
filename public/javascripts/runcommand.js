@@ -45,6 +45,17 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 }
                 var uname = document.querySelector('#uname');
                 break;
+            case 'su':
+                if (argslen == 1) {
+                    output('ilegal input');
+                }
+                else if (argslen == 2) {
+                    su(args_first, output_, cmdLine_);
+                } else {
+                    output('ilegal input');
+                }
+                var uname = document.querySelector('#uname');
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');

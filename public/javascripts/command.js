@@ -177,3 +177,60 @@ function mu(args_first, output_) {
         );
     }
 }
+
+
+//author sakakibara
+// function of su
+function su(args_first, output_) {
+  var userName = args_first;
+  console.log(userName);
+  var cmdLine_ = document.querySelector('#input-line');
+  cmdLine_.style.display = "none";
+  var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" /></div></div></div>';
+  //var pass = '<div id="pass">pass:</div>';
+  output_.insertAdjacentHTML("beforeEnd", pass);
+  var pass_ = output_.querySelector('#pass');
+  pass_.addEventListener("keydown", dopass, false);
+  var inputPass_ = pass_.querySelector('.cmdline');
+  inputPass_.focus();
+
+  function dopass(e){
+    if(e.keyCode == 13){
+      var pwd = inputPass_.value;
+      console.log(userName+pwd);
+      switchUser(userName,pwd);
+      inputPass_.readOnly = true;
+      inputPass_.autofocus = false;
+      cmdLine_.style.display = "";
+      pass_.removeAttribute('id');
+      pass_.classList.add('line');
+      document.querySelector('#input-line .cmdline').focus();
+    }
+  }
+  function switchUser(userName, pass){
+    var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
+    var flag = -1;
+    $.get(requestURL,
+      function(data){
+        for(var i = 0; i < data.length; i++){
+          if(data[i].userName == userName){
+            flag = 0;
+            if(data[i].pass == pass){
+              console.log("exist and correct pass!");
+              flag = 1;
+              break;
+            }
+          }
+        }
+        if(flag = -1){
+          output_.insertAdjacentHTML('beforeEnd','<div>su: Authentication failure</div>');
+        }
+        else if (flag = 1){
+          output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
+        }
+      },
+      "json"
+    );
+
+  }
+}
