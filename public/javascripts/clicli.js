@@ -20,8 +20,12 @@ var Terminal = Terminal || function(containerId) {
     var fs_ = null;
     var cwd_ = null;
     var container_ = document.getElementById(containerId);
-    var currentAcount = "guest";
-    sessionStorage.currentAccount = currentAcount;
+    var currentUserName = "guest";
+    var currentUserPostNumber = "";
+    var currentUserFavorite = [];
+    sessionStorage.currentUserName = currentUserName;
+    sessionStorage.currentUserPostNumber = currentUserPostNumber;
+    sessionStorage.currentUserFavorite = currentUserFavorite;
 
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',

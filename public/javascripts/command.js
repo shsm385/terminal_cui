@@ -226,6 +226,8 @@ function su(args_first, output_) {
         }
         else if (flag == 1){
           output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
+          sessionStorage.currentUserName = userName;
+          console.log(sessionStorage.currentUserName);
         }
       },
       "json"
