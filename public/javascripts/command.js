@@ -233,6 +233,7 @@ function su(args_first, output_) {
     );
 
   }
+}
 // author ito
 // show history function
 function history(output_){
