@@ -224,7 +224,8 @@ function su(args_first, output_) {
         }
         else if (flag == 1){
           output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
-          sessionStorage.setItem("currentUserName", userName)
+          sessionStorage.setItem("currentUserName", userName);
+          $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'@:$');
           console.log("set to "+sessionStorage.getItem("currentUserName"));
         }
       },
