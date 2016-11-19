@@ -23,22 +23,19 @@ function createPath(str) {
             name: '/',
             osaka: {
                 name: "大阪",
-                district: {
-                    Municipality: {
-                    }
-                }
             }
         }
     };
-
-    for (var i = 2; i < 4; i++) {
+    var temp = {};
+    for (var i = 0; i < 4; i++) {
         for (var j = 2; j < 4; j++) {
-            if (str[i][1] === 1) {
-
+            if (j == 3) {
+                dir.root.osaka[str[i][j - 1]] = temp;
+                dir.root.osaka[str[i][j - 1]][str[i][j]] = {};
+                dir.root.osaka[str[i][j - 1]][str[i][j]].name = str[i][j];
             }
         }
     }
-    console.log(dir.root);
     return dir;
 }
 
