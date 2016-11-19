@@ -61,6 +61,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     output('ilegal input');
                 }
                 var uname = document.querySelector('#uname');
+                break;
             case 'history':
                 if (argslen == 1) {
                     history(output_);
