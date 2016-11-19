@@ -20,7 +20,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             argslen = args.length;
             args = args.splice(1);
         }
-        
+
         output_.appendChild(pressEnterKey(node));
         //console.log(before);
         switch (cmd) {
@@ -61,6 +61,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             case 'cal':
                 cal(output_);
                 break;
+            case 'pwd':
+            
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
@@ -76,7 +79,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     if(e.keyCode == 38 && upCnt < cmdCnt){
         //console.log(upCnt);
         //console.log(cmdCnt);
-        if(upCnt < 0)upCnt++; 
+        if(upCnt < 0)upCnt++;
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
