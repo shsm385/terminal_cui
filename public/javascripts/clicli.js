@@ -20,6 +20,12 @@ var Terminal = Terminal || function(containerId) {
     var fs_ = null;
     var cwd_ = null;
     var container_ = document.getElementById(containerId);
+    var currentUserName = "guest";
+    var currentUserPostNumber = "";
+    sessionStorage.setItem("currentUserName", currentUserName);
+    sessionStorage.setItem("currentUserPostNumber", currentUserPostNumber);
+
+
     var beforeCmd = [""];
     var cmdCount = 0;
     var upCount = 0;
@@ -28,7 +34,7 @@ var Terminal = Terminal || function(containerId) {
     sessionStorage.upCount = upCount;
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',
-        '<div class="prompt">$&gt;</div><div><input class="cmdline" autofocus /></div>',
+        '<div class="prompt">'+sessionStorage.getItem("currentUserName")+'$&gt;</div><div><input class="cmdline" autofocus /></div>',
         '</div>'
     ].join(''));
     var cmdLine_ = container_.querySelector('#input-line .cmdline');

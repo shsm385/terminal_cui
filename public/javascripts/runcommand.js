@@ -20,7 +20,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             argslen = args.length;
             args = args.splice(1);
         }
-        
+
         output_.appendChild(pressEnterKey(node));
         //console.log(before);
         switch (cmd) {
@@ -51,6 +51,16 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 }
                 var uname = document.querySelector('#uname');
                 break;
+            case 'su':
+                if (argslen == 1) {
+                    output('ilegal input');
+                }
+                else if (argslen == 2) {
+                    su(args_first, output_, cmdLine_);
+                } else {
+                    output('ilegal input');
+                }
+                var uname = document.querySelector('#uname');
             case 'history':
                 if (argslen == 1) {
                     history(output_);
@@ -76,7 +86,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
     if(e.keyCode == 38 && upCnt < cmdCnt){
         //console.log(upCnt);
         //console.log(cmdCnt);
-        if(upCnt < 0)upCnt++; 
+        if(upCnt < 0)upCnt++;
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
