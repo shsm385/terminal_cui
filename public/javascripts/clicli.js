@@ -22,10 +22,9 @@ var Terminal = Terminal || function(containerId) {
     var container_ = document.getElementById(containerId);
     var currentUserName = "guest";
     var currentUserPostNumber = "";
-    var currentUserFavorite = [];
-    sessionStorage.currentUserName = currentUserName;
-    sessionStorage.currentUserPostNumber = currentUserPostNumber;
-    sessionStorage.currentUserFavorite = currentUserFavorite;
+    sessionStorage.setItem("currentUserName", currentUserName);
+    sessionStorage.setItem("currentUserPostNumber", currentUserPostNumber);
+
 
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',

@@ -183,7 +183,6 @@ function mu(args_first, output_) {
 // function of su
 function su(args_first, output_) {
   var userName = args_first;
-  console.log(userName);
   var cmdLine_ = document.querySelector('#input-line');
   cmdLine_.style.display = "none";
   var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password"/></div></div></div>';
@@ -197,7 +196,6 @@ function su(args_first, output_) {
   function dopass(e){
     if(e.keyCode == 13){
       var pwd = inputPass_.value;
-      console.log(userName+pwd);
       switchUser(userName,pwd);
       inputPass_.readOnly = true;
       inputPass_.autofocus = false;
@@ -226,8 +224,8 @@ function su(args_first, output_) {
         }
         else if (flag == 1){
           output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
-          sessionStorage.currentUserName = userName;
-          console.log(sessionStorage.currentUserName);
+          sessionStorage.setItem("currentUserName", userName)
+          console.log("set to "+sessionStorage.getItem("currentUserName"));
         }
       },
       "json"
