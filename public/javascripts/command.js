@@ -1,5 +1,5 @@
 //aouthor shimada
-function puressEnterKey(node) {
+function pressEnterKey(node) {
     var line = node.parentNode.parentNode.cloneNode(true);
     line.removeAttribute('id');
     line.classList.add('line');
@@ -145,7 +145,7 @@ function mu(args_first, output_) {
             var args = node.value;
             //console.log(args);
             if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""||args.length < 4){
-                output_.insertAdjacentHTML('beforeEnd', 'ilegal input');
+                output_.insertAdjacentHTML('beforeEnd', 'illegal input');
                 return "false";
             }else{
                 return args;
@@ -233,4 +233,42 @@ function su(args_first, output_) {
     );
 
   }
+// author ito
+// show history function
+function history(output_){
+    var comands = sessionStorage.beforeCmd.split(",");
+    for(var i = 0; i < comands.length; i++){
+        output_.insertAdjacentHTML('beforeEnd','<div>'+comands[i]+'</div>');
+    }
+}
+
+// author ito
+// show callender
+function cal(output_){
+    var myDate = new Date();
+    var year = myDate.getFullYear();
+    var month = myDate.getMonth()+1;
+    var date = myDate.getDate();
+    var dateNum = 31;
+    if(month == 4 || month == 6 || month == 9 || month == 11){
+        dateNum = 30;
+    }else if(month == 2){
+        dateNum = 28;
+    }else if(month == 2 && year % 4 == 0){
+        dateNum = 29;
+    }
+    myDate.setDate(1);
+    var week = myDate.getDay();
+    var outputStr = '<div style="margin-left:3em">'+year+'年</div><div style="margin-left:3.5em">'+month+'月</div><div style="margin-left:'+(week+1.25)+'em">';
+    //for (var k = 0; k < week; k++){
+      //  outputStr += "--- ";
+    //}
+    for(var i = 0; i < dateNum+week; i++){
+        if(i%7 == 0&&i!=0)outputStr+='<div>';
+        if(i-week >= 0 && i-week < 9)outputStr+="0";
+        if(i-week>-1)outputStr+=(i+1-week)+" ";
+        if(i%7 == 6)outputStr+='</div>';
+    }
+    console.log(outputStr);
+    output_.insertAdjacentHTML('beforeEnd', outputStr);
 }

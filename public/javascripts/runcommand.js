@@ -2,9 +2,15 @@
 function runCommand(e, node, output_, cmdLine_, CMDS_) {
     var cmd = '';
     var args_first = '';
-
+    var before = sessionStorage.beforeCmd.split(",");
+    var cmdCnt = sessionStorage.cmdCount;
+    var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
-
+        sessionStorage.upCount = 0;
+        if(cmdLine_.value != ""){
+            before.push(cmdLine_.value);
+            cmdCnt++;
+        }
         if (node.value && node.value.trim()) {
             args = node.value.split(' ').filter(function(val, i) {
                 return val;
@@ -15,8 +21,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             args = args.splice(1);
         }
 
-        output_.appendChild(puressEnterKey(node));
-
+        output_.appendChild(pressEnterKey(node));
+        //console.log(before);
         switch (cmd) {
             case 'man':
                 var temp = man(args_first, CMDS_);
@@ -25,23 +31,23 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             case 'clear':
                 if (args_first === undefined) {
                     clear(node, output_);
-                    return;
+                    //return;
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 break;
             case 'sl':
                 if (args_first === undefined) {
                     sl(output_,cmdLine_);
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 break;
             case 'mu':
                 if (argslen == 1) {
                     mu(args_first, output_, cmdLine_);
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 var uname = document.querySelector('#uname');
                 break;
@@ -55,6 +61,15 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                     output('ilegal input');
                 }
                 var uname = document.querySelector('#uname');
+            case 'history':
+                if (argslen == 1) {
+                    history(output_);
+                }else{
+                    output('illegal input');
+                }
+                break;
+            case 'cal':
+                cal(output_);
                 break;
             default:
                 if (cmd) {
@@ -63,8 +78,30 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 break;
         }
         node.value = '';
+        sessionStorage.beforeCmd = before;;
+        sessionStorage.cmdCount = cmdCnt;
     }
-
+    // author ito
+    // get history when push up key
+    if(e.keyCode == 38 && upCnt < cmdCnt){
+        //console.log(upCnt);
+        //console.log(cmdCnt);
+        if(upCnt < 0)upCnt++;
+        cmdLine_.value = before[cmdCnt - upCnt];
+        upCnt++;
+        sessionStorage.upCount = upCnt;
+    }
+    if(e.keyCode == 40 && upCnt >= 0){
+        //console.log(upCnt);
+        //console.log(cmdCnt);
+        upCnt--;
+        if(upCnt >= 0){
+            cmdLine_.value = before[cmdCnt - upCnt];
+        }else{
+            cmdLine_.value = "";
+        }
+        sessionStorage.upCount = upCnt;
+    }
     // aouthor shimada
     function output(html) {
         output_.insertAdjacentHTML('beforeEnd', html);

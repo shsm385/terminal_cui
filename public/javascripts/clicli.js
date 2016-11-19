@@ -26,6 +26,12 @@ var Terminal = Terminal || function(containerId) {
     sessionStorage.setItem("currentUserPostNumber", currentUserPostNumber);
 
 
+    var beforeCmd = [""];
+    var cmdCount = 0;
+    var upCount = 0;
+    sessionStorage.beforeCmd = beforeCmd;
+    sessionStorage.cmdCount = cmdCount;
+    sessionStorage.upCount = upCount;
     container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
         '<div id="input-line" class="input-line">',
         '<div class="prompt">'+sessionStorage.getItem("currentUserName")+'$&gt;</div><div><input class="cmdline" autofocus /></div>',
@@ -58,17 +64,17 @@ var Terminal = Terminal || function(containerId) {
     return {
         initFS: function(persistent, size) {
             //output('<div>Welcome to ' + document.title + '</div>');
-            output("<div>_..　　　　　　　　　 　 　 　 ,,.-'ヽ　 </div>");
+            output("<div>_..　　　　　　　　　 　 　 　 ,,.-'ヽ</div>");
             output('<div>ヽ "ﾞｰ-､、　　 　　　　 　／ :　:! </div>');
             output("<div>　i ､ :.　ヽヽ_,,.....､,,,....._;/ ,;' 　 ;,.! </div>");
-            output('<div>　 i.,　 ..;;;ヽ　　　　　　 ヾ ,,;_ , /</div>');
-            output("<div>　　ヾ_:::,:'　　 　　　　　 　 -,ノ</div>");
-            output('<div>　　ヾ;. 　　,　 　 　　 　　,　､;,　</div>');
-            output('<div>　　　 ;; 　　 ●　,　...　､,● ;:　< Welcome to ' + document.title + ' !!!</div>');
-            output("<div>　　　 `;. 　 　　　　●)　　 ,; '</div>");
-            output("<div>　　 　,;' 　　　 '.､ -‐-ノ ,;'､</div>");
-            output("<div>　　　;'　　　 　　　　　　　 ;:</div>");
-            output("<div>　 　 ;:　　　 　　　　　　　　';;</div>");
+            output('<div>　 i.,　 ..;;;ヽ　　　　　　 ヾ ,,;_ , / </div>');
+            output("<div>　　ヾ_:::,:'　　 　　　　　 　 -,ノ </div>");
+            output('<div>　　ヾ;. 　　,　 　 　　 　　,　､;,</div>');
+            output('<div>　　　 ;; 　　 ●　,　...　､,● ;:　 < Welcome to ' + document.title + ' !!!</div>');
+            output("<div>　　　 `;. 　 　　　　●)　　 ,; ' </div>");
+            output("<div>　　 　,;' 　　　 '.､ -‐-ノ ,;'､ </div>");
+            output("<div>　　　;'　　　 　　　　　　　 ;: </div>");
+            output("<div>　 　 ;:　　　 　　　　　　　　';; </div>");
             output((new Date()).toLocaleString());
             output('<div>Documentation: type "help"</div>');
             output('<div>Swich user to “su”</div>');
