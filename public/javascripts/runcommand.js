@@ -1,5 +1,5 @@
 // aouthor shimada
-function runCommand(e, node, output_, cmdLine_, CMDS_) {
+function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
     var before = sessionStorage.beforeCmd.split(",");
@@ -62,7 +62,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 cal(output_);
                 break;
             case 'pwd':
-            
+                output(path);
                 break;
             default:
                 if (cmd) {

@@ -23,6 +23,8 @@ var Terminal = Terminal || function(containerId) {
     var beforeCmd = [""];
     var cmdCount = 0;
     var upCount = 0;
+    var dir = createPath(csv2Array("./public/models/csv/osaka.csv"));
+    var path = '/';
     sessionStorage.beforeCmd = beforeCmd;
     sessionStorage.cmdCount = cmdCount;
     sessionStorage.upCount = upCount;
@@ -39,11 +41,11 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // keydown event
     cmdLine_.addEventListener("keydown", newCommand, false);
-
+    console.log(dir);
     // aouthor shimada
     // runnninng command
     function newCommand(e) {
-        runCommand(e, this, output_, cmdLine_, CMDS_);
+        runCommand(e, this, output_, cmdLine_, CMDS_, dir, path);
     }
 
 

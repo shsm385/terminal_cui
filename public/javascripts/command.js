@@ -217,7 +217,3 @@ function cal(output_){
     console.log(outputStr);
     output_.insertAdjacentHTML('beforeEnd', outputStr);
 }
-
-function pwd(){
-
-}
