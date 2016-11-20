@@ -56,6 +56,3 @@ function csv2Array(filePath) {
     }
     return csvData;
 }
-
-
-console.log(createPath(csv2Array("./public/models/csv/osaka.csv")));

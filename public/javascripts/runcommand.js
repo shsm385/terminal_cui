@@ -1,5 +1,5 @@
 // aouthor shimada
-function runCommand(e, node, output_, cmdLine_, CMDS_) {
+function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
     var before = sessionStorage.beforeCmd.split(",");
@@ -74,6 +74,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 break;
             case 'sudo':
                 output('sudo: permission denied.');
+                break;
+            case 'pwd':
+                output(path.name);
                 break;
             default:
                 if (cmd) {
