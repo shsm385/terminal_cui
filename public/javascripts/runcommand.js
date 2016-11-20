@@ -62,7 +62,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 cal(output_);
                 break;
             case 'pwd':
-                output(path);
+                output(path.name);
                 break;
             default:
                 if (cmd) {
