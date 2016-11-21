@@ -75,6 +75,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             case 'sudo':
                 output('sudo: permission denied.');
                 break;
+            case 'cat':
+                if(argslen == 1){
+                  cat(output_);
+                }else{
+                  output(cmd+':command not found');
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');

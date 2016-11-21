@@ -273,3 +273,12 @@ function cal(output_){
     console.log(outputStr);
     output_.insertAdjacentHTML('beforeEnd', outputStr);
 }
+
+//author umeki
+//show file and directory in current directory
+function cat(output_){
+  var testU = 'catU';
+  output_.insertAdjacentHTML('beforeEnd','<div>'+testU+'</div>');
+
+
+}
