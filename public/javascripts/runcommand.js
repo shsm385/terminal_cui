@@ -72,8 +72,12 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
             case 'cal':
                 cal(output_);
                 break;
-            case 'sudo':
-                output('sudo: permission denied.');
+            case 'exit':
+                if (argslen == 1) {
+                    exit(output_);
+                } else {
+                    output('illegal input');
+                }
                 break;
             default:
                 if (cmd) {
