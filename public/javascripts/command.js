@@ -288,5 +288,6 @@ function exit(output_){
     outputStr = '<div>exit '+sessionStorage.getItem("currentUserName")+'</div>';
     sessionStorage.setItem("currentUserName", "guest");
     output_.insertAdjacentHTML('beforeEnd', outputStr);
+    $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'$&gt;');
   }
 }
