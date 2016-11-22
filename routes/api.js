@@ -56,7 +56,7 @@ router.route('/users/:userName')
 // userNameを指定して1人のユーザの情報を取得 (GET http://localhost:3000/api/users/:userName)
     .get(function(req, res) {
         //user_idが一致するデータを探す．
-        User.findById(req.params.userName, function(err, user) {
+        User.find({userName: req.params.userName }, function(err, user) {
             if (err)
                 res.send(err);
             res.json(user);
@@ -64,7 +64,7 @@ router.route('/users/:userName')
     })
 // userNameを指定して1人のユーザの情報を更新 (PUT http://localhost:3000/api/users/:userName)
     .put(function(req, res) {
-        User.findById(req.params.userName, function(err, user) {
+        User.findOne({userName: req.params.userName }, function(err, user) {
             if (err)
                 res.send(err);
             // ユーザの各カラムの情報を更新する．
@@ -82,9 +82,7 @@ router.route('/users/:userName')
 
 // userNameを指定して1人のユーザの情報を削除 (DELETE http://localhost:3000/api/users/:userName)
     .delete(function(req, res) {
-        User.remove({
-            userName: req.params.userName
-        }, function(err, user) {
+        User.remove({userName: req.params.userName}, function(err, user) {
             if (err)
                 res.send(err);
             res.json({ message: 'Successfully deleted' });
