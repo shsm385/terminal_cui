@@ -59,7 +59,7 @@ function man(args_first, CMDS_) {
 
 // author ito
 // function runninng sl
-function sl(output_,cmdLine_) {
+function sl(output_, cmdLine_) {
     var inputLine_ = document.querySelector('#input-line');
     inputLine_.style.display = "none";
     output('<video id="sl" autoplay width="100%" height="100%"　poster="./public/figures/zakimot.jpg"><source src="./public/models/movies/sl.mp4" type="video/mp4" /></video>');
@@ -94,7 +94,7 @@ function mu(args_first, output_) {
     function dosome(e) {
         if (e.keyCode == 13) {
             var name = getValue(inputName_);
-            if(name!="false"){
+            if (name != "false") {
                 var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password" /></div></div></div>';
                 output_.insertAdjacentHTML('beforeEnd', pass);
                 inputName_.readOnly = true;
@@ -108,19 +108,19 @@ function mu(args_first, output_) {
                 uname_.classList.add('line');
                 //cmdLine_.style.display = "";
                 //document.querySelector('#input-line .cmdline').focus();
-                function dopass(e){
-                    if(e.keyCode == 13){
+                function dopass(e) {
+                    if (e.keyCode == 13) {
                         var pwd = getValue(inputPass_);
-                        if(pwd != "false"){
+                        if (pwd != "false") {
                             //output_.insertAdjacentHTML('beforeEnd', '<div>user name:'+name+', pass:'+pwd+'</div>');
-                            registerUser(name,pwd);
+                            registerUser(name, pwd);
                             inputPass_.readOnly = true;
                             inputPass_.autofocus = false;
                             cmdLine_.style.display = "";
                             pass_.removeAttribute('id');
                             pass_.classList.add('line');
                             document.querySelector('#input-line .cmdline').focus();
-                        }else{
+                        } else {
                             inputPass_.readOnly = true;
                             inputPass_.autofocus = false;
                             pass_.removeAttribute('id');
@@ -130,7 +130,7 @@ function mu(args_first, output_) {
                         }
                     }
                 }
-            }else{
+            } else {
                 inputName_.readOnly = true;
                 inputName_.autofocus = false;
                 uname_.removeAttribute('id');
@@ -140,37 +140,40 @@ function mu(args_first, output_) {
             }
         }
     }
-    function getValue(node){
+
+    function getValue(node) {
         //if (node.value && node.value.trim()) {
-            var args = node.value;
-            //console.log(args);
-            if(args.match(/\W/)||args.match(/\s/)||args.match(/\0/)||args == ""||args.length < 4){
-                output_.insertAdjacentHTML('beforeEnd', 'illegal input');
-                return "false";
-            }else{
-                return args;
-            }
+        var args = node.value;
+        //console.log(args);
+        if (args.match(/\W/) || args.match(/\s/) || args.match(/\0/) || args == "" || args.length < 4) {
+            output_.insertAdjacentHTML('beforeEnd', 'illegal input');
+            return "false";
+        } else {
+            return args;
+        }
         //}
     }
-    function registerUser(uname, pass){
+
+    function registerUser(uname, pass) {
         var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
         var flag = -1;
         $.get(requestURL,
-            function(data){
+            function(data) {
                 //console.log(data);
-                for(var i = 0; i < data.length; i++){
-                    if(data[i].userName == uname){
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].userName == uname) {
                         flag = 1;
-                        output_.insertAdjacentHTML('beforeEnd','<div>user name:'+uname+' is already exist</div>');
+                        output_.insertAdjacentHTML('beforeEnd', '<div>user name:' + uname + ' is already exist</div>');
                         break;
-                    }else{
+                    } else {
                         flag = 0;
                     }
                 }
-                if(flag == 0){
-                    $.post(requestURL,
-                        {userName:uname,pass:pass}
-                    );
+                if (flag == 0) {
+                    $.post(requestURL, {
+                        userName: uname,
+                        pass: pass
+                    });
                 }
             },
             "json"
@@ -182,93 +185,93 @@ function mu(args_first, output_) {
 //author sakakibara
 // function of su
 function su(args_first, output_) {
-  var userName = args_first;
-  var cmdLine_ = document.querySelector('#input-line');
-  cmdLine_.style.display = "none";
-  var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password"/></div></div></div>';
-  //var pass = '<div id="pass">pass:</div>';
-  output_.insertAdjacentHTML("beforeEnd", pass);
-  var pass_ = output_.querySelector('#pass');
-  pass_.addEventListener("keydown", dopass, false);
-  var inputPass_ = pass_.querySelector('.cmdline');
-  inputPass_.focus();
+    var userName = args_first;
+    var cmdLine_ = document.querySelector('#input-line');
+    cmdLine_.style.display = "none";
+    var pass = '<div id="pass"><div class="input-uname" style="display: inline;">pass:<div style="display: inline;"><input class="cmdline" style="display: inline;" type="password"/></div></div></div>';
+    //var pass = '<div id="pass">pass:</div>';
+    output_.insertAdjacentHTML("beforeEnd", pass);
+    var pass_ = output_.querySelector('#pass');
+    pass_.addEventListener("keydown", dopass, false);
+    var inputPass_ = pass_.querySelector('.cmdline');
+    inputPass_.focus();
 
-  function dopass(e){
-    if(e.keyCode == 13){
-      var pwd = inputPass_.value;
-      switchUser(userName,pwd);
-      inputPass_.readOnly = true;
-      inputPass_.autofocus = false;
-      cmdLine_.style.display = "";
-      pass_.removeAttribute('id');
-      pass_.classList.add('line');
-      document.querySelector('#input-line .cmdline').focus();
+    function dopass(e) {
+        if (e.keyCode == 13) {
+            var pwd = inputPass_.value;
+            switchUser(userName, pwd);
+            inputPass_.readOnly = true;
+            inputPass_.autofocus = false;
+            cmdLine_.style.display = "";
+            pass_.removeAttribute('id');
+            pass_.classList.add('line');
+            document.querySelector('#input-line .cmdline').focus();
+        }
     }
-  }
-  function switchUser(userName, pass){
-    var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
-    var flag = -1;
-    $.get(requestURL,
-      function(data){
-        for(var i = 0; i < data.length; i++){
-          if(data[i].userName == userName){
-            if(data[i].pass == pass){
-              console.log("exist and correct pass!");
-              flag = 1;
-              break;
-            }
-          }
-        }
-        if(flag == -1){
-          output_.insertAdjacentHTML('beforeEnd','<div>su: Authentication failure</div>');
-        }
-        else if (flag == 1){
-          output_.insertAdjacentHTML('beforeEnd','<div>switched to '+userName+'</div>');
-          sessionStorage.setItem("currentUserName", userName);
-          $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'@:$');
-          console.log("set to "+sessionStorage.getItem("currentUserName"));
-        }
-      },
-      "json"
-    );
 
-  }
+    function switchUser(userName, pass) {
+        var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
+        var flag = -1;
+        $.get(requestURL,
+            function(data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].userName == userName) {
+                        if (data[i].pass == pass) {
+                            console.log("exist and correct pass!");
+                            flag = 1;
+                            break;
+                        }
+                    }
+                }
+                if (flag == -1) {
+                    output_.insertAdjacentHTML('beforeEnd', '<div>su: Authentication failure</div>');
+                } else if (flag == 1) {
+                    output_.insertAdjacentHTML('beforeEnd', '<div>switched to ' + userName + '</div>');
+                    sessionStorage.setItem("currentUserName", userName);
+                    $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '@:$');
+                    console.log("set to " + sessionStorage.getItem("currentUserName"));
+                }
+            },
+            "json"
+        );
+
+    }
 }
 // author ito
 // show history function
-function history(output_){
+function history(output_) {
     var comands = sessionStorage.beforeCmd.split(",");
-    for(var i = 0; i < comands.length; i++){
-        output_.insertAdjacentHTML('beforeEnd','<div>'+comands[i]+'</div>');
+    for (var i = 0; i < comands.length; i++) {
+        output_.insertAdjacentHTML('beforeEnd', '<div>' + comands[i] + '</div>');
     }
 }
 
 // author ito
 // show callender
-function cal(output_){
+function cal(output_) {
     var myDate = new Date();
     var year = myDate.getFullYear();
-    var month = myDate.getMonth()+1;
+    var month = myDate.getMonth() + 1;
     var date = myDate.getDate();
     var dateNum = 31;
-    if(month == 4 || month == 6 || month == 9 || month == 11){
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
         dateNum = 30;
-    }else if(month == 2){
+    } else if (month == 2) {
         dateNum = 28;
-    }else if(month == 2 && year % 4 == 0){
+    } else if (month == 2 && year % 4 == 0) {
         dateNum = 29;
     }
     myDate.setDate(1);
     var week = myDate.getDay();
-    var outputStr = '<div style="margin-left:3em">'+year+'年</div><div style="margin-left:3.5em">'+month+'月</div><div style="margin-left:'+(week+1.25)+'em">';
+    var outputStr = '<div style="margin-left:3em">' + year + '年</div><div style="margin-left:3.5em">' + month + '月</div><div style="margin-left:' + (week + 1.25) + 'em">';
     //for (var k = 0; k < week; k++){
-      //  outputStr += "--- ";
+    //  outputStr += "--- ";
     //}
-    for(var i = 0; i < dateNum+week; i++){
-        if(i%7 == 0&&i!=0)outputStr+='<div>';
-        if(i-week >= 0 && i-week < 9)outputStr+="0";
-        if(i-week>-1)outputStr+=(i+1-week)+" ";
-        if(i%7 == 6)outputStr+='</div>';
+    for (var i = 0; i < dateNum + week; i++) {
+        if (i % 7 == 0 && i != 0) outputStr += '<div>';
+        if (i - week >= 0 && i - week < 9) outputStr += "0";
+        if (i - week > -1) outputStr += (i + 1 - week) + " ";
+        if (i % 7 == 6) outputStr += '</div>';
     }
     console.log(outputStr);
     output_.insertAdjacentHTML('beforeEnd', outputStr);
@@ -276,18 +279,73 @@ function cal(output_){
 
 //author sakakibara
 // function of exit
-function exit(output_){
-  var outputStr;
-  if(sessionStorage.getItem("currentUserName") == "guest"){
-    outputStr = '<div>you are guest account</div>';
-    output_.insertAdjacentHTML('beforeEnd', outputStr);
-    //ブラウザによって挙動が異なる
-    //window.open('about:blank','_self').close();
-  }
-  else{
-    outputStr = '<div>exit '+sessionStorage.getItem("currentUserName")+'</div>';
-    sessionStorage.setItem("currentUserName", "guest");
-    output_.insertAdjacentHTML('beforeEnd', outputStr);
-    $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'$&gt;');
-  }
+function exit(output_) {
+    var outputStr;
+    if (sessionStorage.getItem("currentUserName") == "guest") {
+        outputStr = '<div>you are guest account</div>';
+        output_.insertAdjacentHTML('beforeEnd', outputStr);
+        //ブラウザによって挙動が異なる
+        //window.open('about:blank','_self').close();
+    } else {
+        outputStr = '<div>exit ' + sessionStorage.getItem("currentUserName") + '</div>';
+        sessionStorage.setItem("currentUserName", "guest");
+        output_.insertAdjacentHTML('beforeEnd', outputStr);
+        $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '$&gt;');
+    }
+}
+
+//aouthor shimada
+function ls(output_, cmdLine_, path) {
+    if (!path.hasOwnProperty('shops')) {
+        let iterable = Object.values(Object.values(path));
+        var entries = [];
+        for (let value of iterable) {
+            if(value.hasOwnProperty('name')){
+              entries.push(value.name);
+            }
+        }
+        display(entries);
+    } else {
+        let iterable = Object.values(path);
+        var entries = [];
+        var result;
+        for (let value of iterable) {
+            entries.push(value);
+            result = entries.shift();
+        }
+        display(result);
+    }
+
+    function display(result){
+      var html = format(result);
+      html.push('</div>');
+
+      let i = result;
+      for (let value of i) {
+          html.push('<span>', value, '</span>', '<span class = "space"', '>', '</span><br>');
+      }
+      console.log(html);
+      output(html.join(''));
+    }
+
+    function format(entries) {
+        var max = entries[0].length;
+        let iterable = entries;
+        for (let value of iterable) {
+            if (value.length > max) {
+                max = value.length;
+            }
+        }
+        var colWidth = max * 8;
+        var height = 'height 20px';
+        return ['<div class="ls-files" style="-webkit-column-width:',
+            colWidth, 'px;', height, '">'
+        ];
+    }
+
+    function output(html) {
+        output_.insertAdjacentHTML('beforeEnd', html);
+        output_.scrollIntoView();
+        cmdLine_.scrollIntoView();
+    }
 }

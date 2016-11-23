@@ -7,7 +7,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
-        if(cmdLine_.value != ""){
+        if (cmdLine_.value != "") {
             before.push(cmdLine_.value);
             cmdCnt++;
         }
@@ -38,7 +38,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 break;
             case 'sl':
                 if (args_first === undefined) {
-                    sl(output_,cmdLine_);
+                    sl(output_, cmdLine_);
                 } else {
                     output('illegal input');
                 }
@@ -54,8 +54,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'su':
                 if (argslen == 1) {
                     output('ilegal input');
-                }
-                else if (argslen == 2) {
+                } else if (argslen == 2) {
                     su(args_first, output_, cmdLine_);
                 } else {
                     output('ilegal input');
@@ -65,7 +64,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'history':
                 if (argslen == 1) {
                     history(output_);
-                }else{
+                } else {
                     output('illegal input');
                 }
                 break;
@@ -82,6 +81,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'pwd':
                 output(path.name);
                 break;
+            case 'ls':
+                if (argslen == 1) {
+                    ls(output_, cmdLine_, path);
+                }else {
+                    output('illegal input');
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
@@ -94,21 +100,21 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     }
     // author ito
     // get history when push up key
-    if(e.keyCode == 38 && upCnt < cmdCnt){
+    if (e.keyCode == 38 && upCnt < cmdCnt) {
         //console.log(upCnt);
         //console.log(cmdCnt);
-        if(upCnt < 0)upCnt++;
+        if (upCnt < 0) upCnt++;
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
     }
-    if(e.keyCode == 40 && upCnt >= 0){
+    if (e.keyCode == 40 && upCnt >= 0) {
         //console.log(upCnt);
         //console.log(cmdCnt);
         upCnt--;
-        if(upCnt >= 0){
+        if (upCnt >= 0) {
             cmdLine_.value = before[cmdCnt - upCnt];
-        }else{
+        } else {
             cmdLine_.value = "";
         }
         sessionStorage.upCount = upCnt;
