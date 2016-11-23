@@ -7,7 +7,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
-        if (cmdLine_.value != "") {
+        if (cmdLine_.value !== "") {
             before.push(cmdLine_.value);
             cmdCnt++;
         }
@@ -84,7 +84,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'ls':
                 if (argslen == 1) {
                     ls(output_, cmdLine_, path);
-                }else {
+                } else {
                     output('illegal input');
                 }
                 break;
@@ -95,7 +95,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 break;
         }
         node.value = '';
-        sessionStorage.beforeCmd = before;;
+        sessionStorage.beforeCmd = before;
         sessionStorage.cmdCount = cmdCnt;
     }
     // author ito

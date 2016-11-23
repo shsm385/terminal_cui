@@ -102,7 +102,7 @@ function mu(args_first, output_) {
                 //inputName_.diable = true;
                 var pass_ = document.querySelector('#pass');
                 pass_.addEventListener("keydown", dopass, false);
-                var inputPass_ = pass_.querySelector('.cmdline')
+                var inputPass_ = pass_.querySelector('.cmdline');
                 inputPass_.focus();
                 uname_.removeAttribute('id');
                 uname_.classList.add('line');
@@ -300,8 +300,8 @@ function ls(output_, cmdLine_, path) {
         let iterable = Object.values(Object.values(path));
         var entries = [];
         for (let value of iterable) {
-            if(value.hasOwnProperty('name')){
-              entries.push(value.name);
+            if (value.hasOwnProperty('name')) {
+                entries.push(value.name);
             }
         }
         display(entries);
@@ -316,16 +316,15 @@ function ls(output_, cmdLine_, path) {
         display(result);
     }
 
-    function display(result){
-      var html = format(result);
-      html.push('</div>');
-
-      let i = result;
-      for (let value of i) {
-          html.push('<span>', value, '</span>', '<span class = "space"', '>', '</span><br>');
-      }
-      console.log(html);
-      output(html.join(''));
+    function display(result) {
+        var html = format(result);
+        html.push('</div>');
+        let i = result;
+        for (let value of i) {
+            html.push('<span>', value, '</span>', '<span class = "space"', '>', '</span><br>');
+        }
+        console.log(html);
+        output(html.join(''));
     }
 
     function format(entries) {

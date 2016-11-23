@@ -33,9 +33,9 @@ function createPath(str) {
             if (j == 3) {
                 dir.root.osaka[str[i][j - 1]] = temp;
                 dir.root.osaka[str[i][j - 1]][str[i][j]] = {};
-                dir.root.osaka[str[i][j - 1]].name = str[i][j-1];
+                dir.root.osaka[str[i][j - 1]].name = str[i][j - 1];
                 dir.root.osaka[str[i][j - 1]][str[i][j]].name = str[i][j];
-                var shop = getShopName([str[i][j+1]]);
+                var shop = getShopName([str[i][j + 1]]);
                 dir.root.osaka[str[i][j - 1]][str[i][j]].shops = shop;
 
             }
