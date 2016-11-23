@@ -21,8 +21,8 @@ function createPath(str) {
     var dir = {
         root: {
             name: '/',
-            osaka: {
-                name: "大阪",
+            Osaka: {
+                name: "Osaka",
             }
         }
     };
