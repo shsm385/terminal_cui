@@ -21,6 +21,47 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             args = args.splice(1);
         }
 
+		// replace "." or ".." with a pass string only for a first argument
+		if (args_first !== undefined) {
+	        var tmpArgs = args_first.split("/");
+			for (var i = 0; i < tmpArgs.length; i++) {
+   	 		 	if (tmpArgs[i] === ".") {
+   	 		 		var tmpArray = path.string.split("/");
+   	 		 		tmpArgs.splice(i, 1); // remove "."
+   	 		 		for (var k = 0; k < tmpArray.length; k++) {
+   	 		 			tmpArgs.splice(i++, 0, tmpArray[k]);
+ 		 			}
+ 		 			i--;
+	      		} else if (tmpArgs[i] === "..") {
+	      			tmpArgs.splice(i, 1); // remove ".."
+	   				if (i === 0) {
+   		 		 		var tmpArray = path.string.split("/");
+   		 		 		for (var k = 0; k < tmpArray.length - 1; k++) { // assume that path.string doesn't end with "/"
+	 			 			tmpArgs.splice(i++ , 0, tmpArray[k]);
+		 				}
+		 				i--;
+       				} else if (tmpArgs[i - 1] !== ""){
+       					tmpArgs.splice(i - 1, 1); // remove tmpArgs[i - 1]
+       					i -= 2;
+       				} else {
+       					i--;
+       				}
+	       		}
+       		}
+
+			var tmp = "";
+   	 		for (var j = 0, tmp = ""; j < tmpArgs.length; j++) {
+   	 			if (j > 0 && (tmpArgs[j] !== "")) {
+   	 				tmp += "/";
+   	 			}
+   				tmp += tmpArgs[j];
+			}
+			if (tmp === "") {
+				tmp = "/";
+			}
+			args_first = tmp;
+		}
+
         output_.appendChild(pressEnterKey(node));
         //console.log(before);
         switch (cmd) {
