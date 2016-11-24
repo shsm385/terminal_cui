@@ -274,11 +274,28 @@ function cal(output_){
     output_.insertAdjacentHTML('beforeEnd', outputStr);
 }
 
+
 //author umeki
 //show file and directory in current directory
 function cat(output_){
   var testU = 'catU';
   output_.insertAdjacentHTML('beforeEnd','<div>'+testU+'</div>');
+}
 
-
+//author sakakibara
+// function of exit
+function exit(output_){
+  var outputStr;
+  if(sessionStorage.getItem("currentUserName") == "guest"){
+    outputStr = '<div>you are guest account</div>';
+    output_.insertAdjacentHTML('beforeEnd', outputStr);
+    //ブラウザによって挙動が異なる
+    //window.open('about:blank','_self').close();
+  }
+  else{
+    outputStr = '<div>exit '+sessionStorage.getItem("currentUserName")+'</div>';
+    sessionStorage.setItem("currentUserName", "guest");
+    output_.insertAdjacentHTML('beforeEnd', outputStr);
+    $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'$&gt;');
+  }
 }

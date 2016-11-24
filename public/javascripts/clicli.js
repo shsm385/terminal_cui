@@ -22,6 +22,8 @@ var Terminal = Terminal || function(containerId) {
     var container_ = document.getElementById(containerId);
     var currentUserName = "guest";
     var currentUserPostNumber = "";
+    var dir = createPath(csv2Array("./public/models/csv/osaka.csv"));
+    var path = dir.root;
     sessionStorage.setItem("currentUserName", currentUserName);
     sessionStorage.setItem("currentUserPostNumber", currentUserPostNumber);
 
@@ -49,7 +51,7 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // runnninng command
     function newCommand(e) {
-        runCommand(e, this, output_, cmdLine_, CMDS_);
+        runCommand(e, this, output_, cmdLine_, CMDS_, dir, path);
     }
 
 
