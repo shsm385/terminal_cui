@@ -26,8 +26,7 @@ var Terminal = Terminal || function(containerId) {
     var path = dir.root;
     sessionStorage.setItem("currentUserName", currentUserName);
     sessionStorage.setItem("currentUserPostNumber", currentUserPostNumber);
-
-
+    console.log(dir);
     var beforeCmd = [""];
     var cmdCount = 0;
     var upCount = 0;
