@@ -497,7 +497,7 @@ function cd(path, targetPath, dir, output_) {
 
 		var targetDirs = targetPath.split("/");
 		for (var i = 0; i < targetDirs.length; i++) {
-			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory)
+			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory) etc
 				continue;
 			}
 
