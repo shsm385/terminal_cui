@@ -77,9 +77,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_) {
                 break;
             case 'cat':
                 if(argslen == 1){
-                  cat(output_);
+                  output(cmd+':select source as first argument');
                 }else{
-                  output(cmd+':command not found');
+                  output(cmd+':illegal input');
                 }
                 break;
             default:
