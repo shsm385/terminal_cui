@@ -136,6 +136,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'cd':
             	cd(path, args_first, dir, output_);
             	break;
+            case 'help':
+                output('<a href="https://www.google.com" target="_blank">https://www.google.com');
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
