@@ -81,6 +81,9 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'pwd':
                 output(path.name);
                 break;
+            case 'sudo':
+                output('permission denied.');
+                break;
             case 'ls':
                 if (argslen == 1) {
                     ls(output_, cmdLine_, path);
