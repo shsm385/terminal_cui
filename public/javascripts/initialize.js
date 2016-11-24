@@ -66,7 +66,7 @@ function getShopName(area) {
     // ホットペッパーAPIを呼び出す
     function getData() {
         return $.ajax({
-            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=40',
+            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=45',
             type: "GET",
             contentType: "application/json; charset=utf-8"
         });
@@ -75,9 +75,7 @@ function getShopName(area) {
         var json = result.results[0];
         var temp = json.replace("</body></html>", "");
         var temp2 = temp.replace("<html><head/><body>", "");
-        var temp3 = temp2.replace("undefined", "");
-        var temp4 = temp3.replace(/[\r\n]?/g, "").replace(/<*(.*?)>*/g, "$1");
-        var data = JSON.parse(temp3);
+        var data = JSON.parse(temp2);
         let iterable = data.results.shop;
         for (let value of iterable) {
             shopList.push(value.name);

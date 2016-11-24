@@ -323,7 +323,6 @@ function ls(output_, cmdLine_, path) {
         for (let value of i) {
             html.push('<span>', value, '</span>', '<span class = "space"', '>', '</span><br>');
         }
-        console.log(html);
         output(html.join(''));
     }
 
