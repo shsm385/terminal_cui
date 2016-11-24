@@ -328,7 +328,7 @@ function ls(output_, cmdLine_, path) {
     }
 
     function format(entries) {
-        var max = entries[0].length;
+        var max = 0;
         let iterable = entries;
         for (let value of iterable) {
             if (value.length > max) {
