@@ -7,7 +7,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var upCnt = sessionStorage.upCount;
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
-        if (cmdLine_.value !== "") {
+        if(cmdLine_.value !== ""){
             before.push(cmdLine_.value);
             cmdCnt++;
         }
@@ -38,7 +38,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 break;
             case 'sl':
                 if (args_first === undefined) {
-                    sl(output_, cmdLine_);
+                    sl(output_,cmdLine_);
                 } else {
                     output('illegal input');
                 }
@@ -54,7 +54,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'su':
                 if (argslen == 1) {
                     output('ilegal input');
-                } else if (argslen == 2) {
+                }
+                else if (argslen == 2) {
                     su(args_first, output_, cmdLine_);
                 } else {
                     output('ilegal input');
@@ -64,7 +65,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'history':
                 if (argslen == 1) {
                     history(output_);
-                } else {
+                }else{
                     output('illegal input');
                 }
                 break;
@@ -84,7 +85,6 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'sudo':
                 output('permission denied.');
                 break;
-
             case 'ls':
                 if (argslen == 1) {
                     ls(output_, cmdLine_, path);
