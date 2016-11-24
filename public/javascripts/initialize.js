@@ -37,7 +37,6 @@ function createPath(str) {
                 dir.root.Osaka[str[i][j - 1]][str[i][j]].name = str[i][j];
                 var shop = getShopName([str[i][j + 1]]);
                 dir.root.Osaka[str[i][j - 1]][str[i][j]].shops = shop;
-
             }
         }
     }
@@ -77,7 +76,7 @@ function getShopName(area) {
         var temp = json.replace("</body></html>", "");
         var temp2 = temp.replace("<html><head/><body>", "");
         var temp3 = temp2.replace("undefined", "");
-        var temp4 = temp3.replace(/[\r\n]?/g,"").replace(/<*(.*?)>*/g,"$1");
+        var temp4 = temp3.replace(/[\r\n]?/g, "").replace(/<*(.*?)>*/g, "$1");
         var data = JSON.parse(temp3);
         let iterable = data.results.shop;
         for (let value of iterable) {
