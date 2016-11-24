@@ -21,18 +21,22 @@ function createPath(str) {
     var dir = {
         root: {
             name: '/',
-            osaka: {
-                name: "大阪",
+            Osaka: {
+                name: "Osaka",
             }
         }
     };
     var temp = {};
-    for (var i = 0; i < 4; i++) {
-        for (var j = 2; j < 4; j++) {
+
+    for (var i = 0; i < 5; i++) {
+        for (var j = 2; j < 5; j++) {
             if (j == 3) {
-                dir.root.osaka[str[i][j - 1]] = temp;
-                dir.root.osaka[str[i][j - 1]][str[i][j]] = {};
-                dir.root.osaka[str[i][j - 1]][str[i][j]].name = str[i][j];
+                dir.root.Osaka[str[i][j - 1]] = temp;
+                dir.root.Osaka[str[i][j - 1]][str[i][j]] = {};
+                dir.root.Osaka[str[i][j - 1]].name = str[i][j - 1];
+                dir.root.Osaka[str[i][j - 1]][str[i][j]].name = str[i][j];
+                var shop = getShopName([str[i][j + 1]]);
+                dir.root.Osaka[str[i][j - 1]][str[i][j]].shops = shop;
             }
         }
     }
@@ -55,4 +59,31 @@ function csv2Array(filePath) {
         }
     }
     return csvData;
+}
+
+function getShopName(area) {
+    var shopList = [];
+    // ホットペッパーAPIを呼び出す
+    function getData() {
+        return $.ajax({
+            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=45',
+            type: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+    }
+    getData().done(function(result) {
+        var json = result.results[0];
+        var temp = json.replace("</body></html>", "");
+        var temp2 = temp.replace("<html><head/><body>", "");
+        var data = JSON.parse(temp2);
+        let iterable = data.results.shop;
+        for (let value of iterable) {
+            shopList.push(value.name);
+        }
+
+    }).fail(function(result) {
+        alert("Error");
+    });
+
+    return shopList;
 }
