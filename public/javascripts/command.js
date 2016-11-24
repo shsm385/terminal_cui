@@ -281,14 +281,16 @@ function cal(output_) {
 //author umeki
 //show file and directory in current directory
 function cat(output_, args_first){
-  var args_first  = "Chaleur シャルール 梅田 堂島店"; //テスト名．今後cdが実装されてから確認する必要あり
+  //var args_first  = "Chaleur シャルール 梅田 堂島店"; //テスト名．今後cdが実装されてから確認する必要あり
   var targetShopName = args_first.replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
   getShopInfo(targetShopName, function(shopInfo){
-    console.log('aaaa');
     console.log(shopInfo);
     for(var i=0; i< shopInfo.length; i++){
       output_.insertAdjacentHTML('beforeEnd','<div>'+shopInfo[i]+'</div>');
     }
+    output_.insertAdjacentHTML('beforeEnd','<div>\n</div>');
+    output_.scrollIntoView();
+    cmdLine_.scrollIntoView();
 
   });
 
@@ -297,7 +299,6 @@ function cat(output_, args_first){
     //var shopInfo = [];
     var shopData = [];
     getData().done(function(result) {
-      console.log('het');
         var json = result.results[0];
         var temp = json.replace("</body></html>", "");
         var temp2 = temp.replace("<html><head/><body>", "");
@@ -449,7 +450,7 @@ function cd(path, targetPath, dir, output_) {
 				return path.position;
 			}
 		}
-		
+
 
 		path.string = tmpPathStr;
 		path.position = goal;
@@ -458,7 +459,7 @@ function cd(path, targetPath, dir, output_) {
 
 	function findTargetDir(currDir, targetDir) {
 		var found = false;
-	
+
 		Object.keys(currDir).forEach(function(key) {
 			if ((key !== "name") && (targetDir === this[key].name)) {
 				found = true;

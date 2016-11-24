@@ -86,12 +86,16 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 output('permission denied.');
                 break;
             case 'cat':
+                var catText;
                 if(argslen == 1){
                   output(cmd+':select source as first argument');
-                }else if (argslen == 2) {
-                  cat(output_, args_first);
                 }else{
+                  for(var i=1; i< args.length; i++){
+                    catText += ' '+args[i];
+                  }
+                  cat(output_, args_first);
                   output(cmd+':illegal input');
+                  console.log('ff:'+catText);
                 }
                 break;
             case 'ls':
