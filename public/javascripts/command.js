@@ -281,8 +281,65 @@ function cal(output_) {
 //author umeki
 //show file and directory in current directory
 function cat(output_, args_first){
-  var testU = args_first;
-  output_.insertAdjacentHTML('beforeEnd','<div>'+args_first+'</div>');
+  var args_first  = "Chaleur シャルール 梅田 堂島店";
+  var targetShopName = args_first.replace(/\s+/g,"%20");
+  var shopInfo = getShopInfo(targetShopName);
+  console.log(shopInfo);
+
+  if (!path.hasOwnProperty('shops')) {
+      let iterable = Object.values(Object.values(path));
+      var entries = [];
+      for (let value of iterable) {
+          if (value.hasOwnProperty('name')) {
+              entries.push(value.name);
+          }
+      }
+      //display(entries);
+      console.log(entries);
+  } else {
+      let iterable = Object.values(path);
+      var entries = [];
+      var result;
+      for (let value of iterable) {
+          entries.push(value);
+          result = entries.shift();
+      }
+      console.log(result);
+  }
+
+
+  function getShopInfo(shopName){
+    var shopInfo = [];
+    // ホットペッパーAPIを呼び出す
+    function getData() {
+        console.log('http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword='+ shopName);
+        return $.ajax({
+            url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword='+ shopName,
+            type: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+    }
+    getData().done(function(result) {
+        var json = result.results[0];
+        var temp = json.replace("</body></html>", "");
+        var temp2 = temp.replace("<html><head/><body>", "");
+        var data = JSON.parse(temp2);
+        let iterable = data.results.shop;
+        for (let value of iterable) {
+            shopInfo.push(value.name);
+            shopInfo.push(value.id);
+
+        }
+        console.log(result);
+
+    }).fail(function(result) {
+      //console.log(result);
+        alert("Error");
+    });
+    console.log(shopInfo);
+    return shopInfo;
+  }
+
 }
 
 //author sakakibara
