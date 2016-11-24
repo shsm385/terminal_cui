@@ -2,9 +2,11 @@
 function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
+    var args = '';
     var before = sessionStorage.beforeCmd.split(",");
     var cmdCnt = sessionStorage.cmdCount;
     var upCnt = sessionStorage.upCount;
+    var args_all = '';
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
         if(cmdLine_.value !== ""){
@@ -18,6 +20,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             cmd = args[0].toLowerCase();
             args_first = args[1];
             argslen = args.length;
+            for(var i=1; i< argslen; i++){
+              if(i == argslen -1){
+                args_all += args[i];
+              }else{
+                args_all += args[i]+' ';
+              }
+            }
             args = args.splice(1);
         }
 
@@ -86,16 +95,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 output('permission denied.');
                 break;
             case 'cat':
-                var catText;
                 if(argslen == 1){
                   output(cmd+':select source as first argument');
+                  console.log(path.position);
                 }else{
-                  for(var i=1; i< args.length; i++){
-                    catText += ' '+args[i];
-                  }
-                  cat(output_, args_first);
-                  output(cmd+':illegal input');
-                  console.log('ff:'+catText);
+                  cat(output_, cmdLine_, args_all, path.position);
                 }
                 break;
             case 'ls':
