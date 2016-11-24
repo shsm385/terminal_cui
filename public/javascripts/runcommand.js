@@ -24,6 +24,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 		// replace "." or ".." with a pass string only for a first argument
 		if (args_first !== undefined) {
 	        var tmpArgs = args_first.split("/");
+	        var isAbsolutePath = false;
+	        
+	        if (tmpArgs[0] === "") { // starts with "/"
+	        	isAbsolutePath = true;
+	        }
 			for (var i = 0; i < tmpArgs.length; i++) {
    	 		 	if (tmpArgs[i] === ".") {
    	 		 		var tmpArray = path.string.split("/");
@@ -57,7 +62,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
    				tmp += tmpArgs[j];
 			}
 			if (tmp === "") {
-				tmp = "/";
+				if (isAbsolutePath) {
+					tmp = "/";
+				} else {
+					tmp = path.string;
+				}
 			}
 			args_first = tmp;
 		}
