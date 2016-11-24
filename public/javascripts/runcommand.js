@@ -88,6 +88,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'cat':
                 if(argslen == 1){
                   output(cmd+':select source as first argument');
+                }else if (argslen == 2) {
+                  cat(output_, args_first);
                 }else{
                   output(cmd+':illegal input');
                 }

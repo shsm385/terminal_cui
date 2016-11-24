@@ -277,9 +277,9 @@ function cal(output_){
 
 //author umeki
 //show file and directory in current directory
-function cat(output_){
-  var testU = 'catU';
-  output_.insertAdjacentHTML('beforeEnd','<div>'+testU+'</div>');
+function cat(output_, args_first){
+  var testU = args_first;
+  output_.insertAdjacentHTML('beforeEnd','<div>'+args_first+'</div>');
 }
 
 //author sakakibara
