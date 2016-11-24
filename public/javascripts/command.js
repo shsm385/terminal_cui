@@ -400,3 +400,71 @@ function ls(output_, cmdLine_, path) {
         cmdLine_.scrollIntoView();
     }
 }
+
+// author tominaga
+// a function for a cd command
+function cd(path, targetPath, dir, output_) {
+	var tmpPathStr = "";
+
+	if (targetPath === undefined) {
+		path.string = "/";
+		path.position = dir.root;
+		return dir.root;	// go to a root directory
+	} else {
+		var target = " " + targetPath;
+		var goal = dir.root;	// finally point to a directory which targetPath represents
+
+		if (target.indexOf(" /") !== -1) {
+			// the case that targetPath starts with "/"(root directory)
+			goal = dir.root;
+			tmpPathStr += "/";
+		} else {
+			// the case that targetPath originate from a current directory
+			goal = path.position;
+			tmpPathStr = path.string;
+		}
+
+		var targetDirs = targetPath.split("/");
+		for (var i = 0; i < targetDirs.length; i++) {
+			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory)
+				continue;
+			}
+
+			var found = false;
+			Object.keys(goal).forEach(function(key) {
+				if ((targetDirs[i] === this[key].name)) {
+					found = true;
+					goal = this[key];
+				}
+			}, goal);
+
+			if (found === true) {
+				var tmpStr = tmpPathStr + " ";
+				if (tmpStr.indexOf("/ ") === -1) {
+					tmpPathStr += "/";
+				}
+				tmpPathStr += goal.name;
+			} else {
+				output_.insertAdjacentHTML('beforeEnd', '<div>No such directory</div>');
+				return path.position;
+			}
+		}
+		
+
+		path.string = tmpPathStr;
+		path.position = goal;
+		return goal;
+	}
+
+	function findTargetDir(currDir, targetDir) {
+		var found = false;
+	
+		Object.keys(currDir).forEach(function(key) {
+			if ((key !== "name") && (targetDir === this[key].name)) {
+				found = true;
+			}
+		}, currDir);
+
+		return found;
+	}
+}
