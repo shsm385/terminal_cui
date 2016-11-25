@@ -294,7 +294,7 @@ function cat(output_, cmdLine_, args_all, current_path){
       output(targetShopName+':is directory');
       return false;
   } else if(shop_name == null){
-      output(args_all+':No such a shop Information or directory');
+      output(args_all+':No such shop information or directory');
       return false;
   } else {
       console.log('else:'+shop_name.length);
@@ -319,7 +319,7 @@ function cat(output_, cmdLine_, args_all, current_path){
         return true;
       });
   }else{
-      output(args_all+':No such shop Information or directory');
+      output(args_all+':No such shop information or directory');
       return false;
   }
     //カレントディレクトリの構成を持ってくる
@@ -372,9 +372,10 @@ function cat(output_, cmdLine_, args_all, current_path){
           let iterable = data.results.shop;
           for (let value of iterable) {
               shopData.push('name:'+value.name);
-              shopData.push('店舗id:'+value.id);
+              //shopData.push('店舗id:'+value.id);
               shopData.push('住所:'+value.address);
               shopData.push('Url(pc):'+value.urls.pc);
+              window.open(value.urls.pc);
               shopData.push('Url(mobile):'+value.urls.mobile);
               shopData.push('ジャンル:'+value.genre.name);
             }
