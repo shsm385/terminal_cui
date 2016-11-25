@@ -230,7 +230,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             if(count == 1){
                 //console.log(entries);
                 cmdLine_.value += entries;
-            }else{
+            }else if(count != 0){
                 //console.log(entries);
                 output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
                 for(let re of entries){
@@ -255,7 +255,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             }
             if(count == 1){
                 cmdLine_.value += result;
-            }else{
+            }else if(count != 0){
                 output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
                 for(let re of entries){
                     output('<div>' + re + '</div>');
