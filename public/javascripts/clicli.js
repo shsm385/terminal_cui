@@ -46,6 +46,17 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // keydown event
     cmdLine_.addEventListener("keydown", newCommand, false);
+    
+    // author tominaga
+    // click event
+    document.addEventListener("click", setFocus, false);
+    
+    // author tominaga
+    // set focus to a input form
+    function setFocus() {
+    	console.log("click");
+    	cmdLine_.focus();
+    }
 
     // aouthor shimada
     // runnninng command
