@@ -375,7 +375,6 @@ function cat(output_, cmdLine_, args_all, current_path){
               //shopData.push('店舗id:'+value.id);
               shopData.push('住所:'+value.address);
               shopData.push('Url(pc):'+value.urls.pc);
-              window.open(value.urls.pc);
               shopData.push('Url(mobile):'+value.urls.mobile);
               shopData.push('ジャンル:'+value.genre.name);
             }
