@@ -238,6 +238,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 }
                 cmdLine_.value += key;
                 cmdLine_.focus();
+            }else if(count == 0){
+                cmdLine_.value = str;
             }
         }else{
             let iterable = Object.values(path.position);
@@ -255,12 +257,15 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             }
             if(count == 1){
                 cmdLine_.value += result;
-            }else if(count != 0){
+            }else if(count >= 0){
                 output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
                 for(let re of entries){
                     output('<div>' + re + '</div>');
                 }
                 cmdLine_.value += key;
+            }else if(count == 0){
+                
+                cmdLine_.value = str;
             }
         }
         function output(html){
