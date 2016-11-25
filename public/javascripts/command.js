@@ -426,7 +426,7 @@ function ls(output_, cmdLine_, path) {
                 entries.push(value.name);
             }
         }
-        display(entries);
+        display(entries, "color:white;");
     } else {
         let iterable = Object.values(path);
         var entries = [];
@@ -435,15 +435,15 @@ function ls(output_, cmdLine_, path) {
             entries.push(value);
             result = entries.shift();
         }
-        display(result);
+        display(result, "color:#993333;");
     }
 
-    function display(result) {
+    function display(result, color) {
         var html = format(result);
         html.push('</div>');
         let i = result;
         for (let value of i) {
-            html.push('<span>', value, '</span>', '<span class = "space"', '>', '</span><br>');
+            html.push('<span style=', color, '>', value, '</span>', '<span class = "space"', '>', '</span><br>');
         }
         output(html.join(''));
     }
