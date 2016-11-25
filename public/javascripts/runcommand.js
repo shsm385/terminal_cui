@@ -4,8 +4,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var args_first = '';
     var args = '';
     var before = sessionStorage.beforeCmd.split(",");
-    var cmdCnt = sessionStorage.cmdCount;
-    var upCnt = sessionStorage.upCount;
+    var cmdCnt = parseInt(sessionStorage.cmdCount);
+    var upCnt = parseInt(sessionStorage.upCount);
     var args_all = '';
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
@@ -34,7 +34,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 		if (args_first !== undefined) {
 	        var tmpArgs = args_first.split("/");
 	        var isAbsolutePath = false;
-	        
+
 	        if (tmpArgs[0] === "") { // starts with "/"
 	        	isAbsolutePath = true;
 	        }
@@ -177,7 +177,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     }
     // author ito
     // get history when push up key
-    if (e.keyCode == 38 && upCnt < cmdCnt) {
+    if ( (e.keyCode == 38) && (upCnt < cmdCnt)) {
         //console.log(upCnt);
         //console.log(cmdCnt);
         if (upCnt < 0) upCnt++;
