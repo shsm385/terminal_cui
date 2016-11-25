@@ -280,124 +280,122 @@ function cal(output_) {
 
 //author umeki
 //show file and directory in current directory
-function cat(output_, cmdLine_, args_all, current_path){
+function cat(output_, cmdLine_, args_all, current_path) {
 
-  var shop_name = '';
-  var search_flag = false;
-  console.log(current_path);
-  var temp_args = args_all.replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
-  var targetShopName = temp_args.replace(/　/g, "%20");
+    var shop_name = '';
+    var search_flag = false;
+    console.log('cat_all:'+args_all);
+    var temp_args = args_all.replace(/\s+/g, "%20"); //店舗名に空白が実装されていた場合に整頓する
+    var targetShopName = temp_args.replace(/　/g, "%20");
 
-  shop_name = getDirectoryComponent(current_path,targetShopName);
+    shop_name = getDirectoryComponent(current_path, targetShopName);
 
-  if(shop_name == 'directory'){
-      output(targetShopName+':is directory');
-      return false;
-  } else if(shop_name == null){
-      output(args_all+':No such shop information or directory');
-      return false;
-  } else {
-      console.log('else:'+shop_name.length);
-      for(var i=0; i< shop_name.length; i++){
-        var temp_shop = shop_name[i].replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
-        var allShopName = temp_shop.replace(/　/g, "%20");
-        console.log('shop_name'+ allShopName+'targetShopName:'+targetShopName);
-        if(targetShopName == allShopName){
-          search_flag = true;
-          console.log('seikou');
-        }
-      }
-  }
-
-  if(search_flag){
-      console.log(targetShopName);
-      getShopInfo(targetShopName, function(shopInfo){
-        console.log(shopInfo);
-        for(var i=0; i< shopInfo.length; i++){
-          output(shopInfo[i]);
-        }
-        return true;
-      });
-  }else{
-      output(args_all+':No such shop information or directory');
-      return false;
-  }
-    //カレントディレクトリの構成を持ってくる
-  function getDirectoryComponent(path,targetSN){
-      if(isDirectory(path,targetSN) == 'false'){
-          let iterable = Object.values(path);
-          var entries = [];
-          var result;
-          var i=0;
-          for (let value of iterable) {
-              entries.push(value);
-              result = entries.shift();
-          }
-          return result;
-      } else if(isDirectory(path,targetSN) == 'directory'){
-          return 'directory';
-      } else if(isDirectory(path,targetSN) == 'No_directory') {
-          return null;
-      }
-  }
-
-  //カレントディレクトリの構成がディレクトリか店情報かを判断する
-  function isDirectory(path, targetSN){
-      if (!path.hasOwnProperty('shops')) {
-        let iterable = Object.values(Object.values(path));
-        var entries = [];
-        for (let value of iterable) {
-            if (value.hasOwnProperty('name')) {
-                if(value.name == targetSN){
-                  return 'directory';
-                }
+    if (shop_name == 'directory') {
+        output(targetShopName + ':is directory');
+        return false;
+    } else if (shop_name == null) {
+        output(args_all + ':No such shop information or directory');
+        return false;
+    } else {
+        for (var i = 0; i < shop_name.length; i++) {
+            var temp_shop = shop_name[i].replace(/\s+/g, "%20"); //店舗名に空白が実装されていた場合に整頓する
+            var allShopName = temp_shop.replace(/　/g, "%20");
+            if (targetShopName == allShopName) {
+                search_flag = true;
+                console.log('seikou');
             }
         }
-        return 'No_directory';
-      } else {
-        return 'false';
-      }
-  }
+    }
+
+    if (search_flag) {
+        console.log(targetShopName);
+        getShopInfo(targetShopName, function(shopInfo) {
+            console.log(shopInfo);
+            for (var i = 0; i < shopInfo.length; i++) {
+                output(shopInfo[i]);
+            }
+            return true;
+        });
+    } else {
+        output(args_all + ':No such shop information or directory');
+        return false;
+    }
+    //カレントディレクトリの構成を持ってくる
+    function getDirectoryComponent(path, targetSN) {
+        if (isDirectory(path, targetSN) == 'false') {
+            let iterable = Object.values(path);
+            var entries = [];
+            var result;
+            var i = 0;
+            for (let value of iterable) {
+                entries.push(value);
+                result = entries.shift();
+            }
+            return result;
+        } else if (isDirectory(path, targetSN) == 'directory') {
+            return 'directory';
+        } else if (isDirectory(path, targetSN) == 'No_directory') {
+            return null;
+        }
+    }
+
+    //カレントディレクトリの構成がディレクトリか店情報かを判断する
+    function isDirectory(path, targetSN) {
+        if (!path.hasOwnProperty('shops')) {
+            let iterable = Object.values(Object.values(path));
+            var entries = [];
+            for (let value of iterable) {
+                if (value.hasOwnProperty('name')) {
+                    if (value.name == targetSN) {
+                        return 'directory';
+                    }
+                }
+            }
+            return 'No_directory';
+        } else {
+            return 'false';
+        }
+    }
 
 
     //店情報をapiからとってくる
-  function getShopInfo(shopName, callback){
-      //var shopInfo = [];
-      var shopData = [];
-      getData().done(function(result) {
-          var json = result.results[0];
-          var temp = json.replace("</body></html>", "");
-          var temp2 = temp.replace("<html><head/><body>", "");
-          var data = JSON.parse(temp2);
-          let iterable = data.results.shop;
-          for (let value of iterable) {
-              shopData.push('name:'+value.name);
-              //shopData.push('店舗id:'+value.id);
-              shopData.push('住所:'+value.address);
-              shopData.push('Url(pc):'+value.urls.pc);
-              shopData.push('Url(mobile):'+value.urls.mobile);
-              shopData.push('ジャンル:'+value.genre.name);
+    function getShopInfo(shopName, callback) {
+        //var shopInfo = [];
+        var shopData = [];
+        getData().done(function(result) {
+            var json = result.results[0];
+            var temp = json.replace("</body></html>", "");
+            var temp2 = temp.replace("<html><head/><body>", "");
+            var data = JSON.parse(temp2);
+            let iterable = data.results.shop;
+            for (let value of iterable) {
+                shopData.push('name:' + value.name);
+                //shopData.push('店舗id:'+value.id);
+                shopData.push('住所:' + value.address);
+                shopData.push('Url(pc):' + value.urls.pc);
+                shopData.push('Url(mobile):' + value.urls.mobile);
+                shopData.push('ジャンル:' + value.genre.name);
             }
             callback(shopData);
-      }).fail(function(result) {
-          alert("Error");
-      });
+        }).fail(function(result) {
+            alert("Error");
+        });
 
-      // ホットペッパーAPIを呼び出す
-      function getData() {
-          return $.ajax({
-              url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword='+ shopName,
-              type: "GET",
-              contentType: "application/json; charset=utf-8"
-          });
-      }
-  }
+        // ホットペッパーAPIを呼び出す
+        function getData() {
+            return $.ajax({
+                url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword=' + shopName,
+                type: "GET",
+                contentType: "application/json; charset=utf-8"
+            });
+        }
+    }
 
-  function output(html) {
-      output_.insertAdjacentHTML('beforeEnd','<div>'+html+'</div>');
-      output_.scrollIntoView();
-      cmdLine_.scrollIntoView();
-  }
+    function output(html) {
+        output_.insertAdjacentHTML('beforeEnd', '<div>' + html + '</div>');
+        output_.scrollIntoView();
+        cmdLine_.scrollIntoView();
+    }
 
 }
 
@@ -475,182 +473,185 @@ function ls(output_, cmdLine_, path) {
 // author tominaga
 // a function for a cd command
 function cd(path, targetPath, dir, output_) {
-	var tmpPathStr = "";
+    var tmpPathStr = "";
 
-	if (targetPath === undefined) {
-		path.string = "/";
-		path.position = dir.root;
-		return dir.root;	// go to a root directory
-	} else {
-		var target = " " + targetPath;
-		var goal = dir.root;	// finally point to a directory which targetPath represents
+    if (targetPath === undefined) {
+        path.string = "/";
+        path.position = dir.root;
+        return dir.root; // go to a root directory
+    } else {
+        var target = " " + targetPath;
+        var goal = dir.root; // finally point to a directory which targetPath represents
 
-		if (target.indexOf(" /") !== -1) {
-			// the case that targetPath starts with "/"(root directory)
-			goal = dir.root;
-			tmpPathStr += "/";
-		} else {
-			// the case that targetPath originate from a current directory
-			goal = path.position;
-			tmpPathStr = path.string;
-		}
+        if (target.indexOf(" /") !== -1) {
+            // the case that targetPath starts with "/"(root directory)
+            goal = dir.root;
+            tmpPathStr += "/";
+        } else {
+            // the case that targetPath originate from a current directory
+            goal = path.position;
+            tmpPathStr = path.string;
+        }
 
-		var targetDirs = targetPath.split("/");
-		for (var i = 0; i < targetDirs.length; i++) {
-			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory) etc
-				continue;
-			}
+        var targetDirs = targetPath.split("/");
+        for (var i = 0; i < targetDirs.length; i++) {
+            if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory) etc
+                continue;
+            }
 
-			var found = false;
-			Object.keys(goal).forEach(function(key) {
-				if ((targetDirs[i] === this[key].name)) {
-					found = true;
-					goal = this[key];
-				}
-			}, goal);
+            var found = false;
+            Object.keys(goal).forEach(function(key) {
+                if ((targetDirs[i] === this[key].name)) {
+                    found = true;
+                    goal = this[key];
+                }
+            }, goal);
 
-			if (found === true) {
-				var tmpStr = tmpPathStr + " ";
-				if (tmpStr.indexOf("/ ") === -1) {
-					tmpPathStr += "/";
-				}
-				tmpPathStr += goal.name;
-			} else {
-				output_.insertAdjacentHTML('beforeEnd', '<div>No such directory</div>');
-				return path.position;
-			}
-		}
+            if (found === true) {
+                var tmpStr = tmpPathStr + " ";
+                if (tmpStr.indexOf("/ ") === -1) {
+                    tmpPathStr += "/";
+                }
+                tmpPathStr += goal.name;
+            } else {
+                output_.insertAdjacentHTML('beforeEnd', '<div>No such directory</div>');
+                return path.position;
+            }
+        }
 
 
-		path.string = tmpPathStr;
-		path.position = goal;
-		return goal;
-	}
+        path.string = tmpPathStr;
+        path.position = goal;
+        return goal;
+    }
 
-	function findTargetDir(currDir, targetDir) {
-		var found = false;
+    function findTargetDir(currDir, targetDir) {
+        var found = false;
 
-		Object.keys(currDir).forEach(function(key) {
-			if ((key !== "name") && (targetDir === this[key].name)) {
-				found = true;
-			}
-		}, currDir);
+        Object.keys(currDir).forEach(function(key) {
+            if ((key !== "name") && (targetDir === this[key].name)) {
+                found = true;
+            }
+        }, currDir);
 
-		return found;
-	}
+        return found;
+    }
 }
 
-  function open(output_, cmdLine_, args_all, current_path){
-      var shop_name = '';
-      var search_flag = false;
-      var temp_args = args_all.replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
-      var targetShopName = temp_args.replace(/　/g, "%20");
-      var res;
+function open1(output_, cmdLine_, args_all, current_path, callback) {
+    var shop_name = '';
+    var search_flag = false;
+    console.log('open_all:' + args_all);
+    var temp_args = args_all.replace(/\s+/g, "%20"); //店舗名に空白が実装されていた場合に整頓する
+    var targetShopName = temp_args.replace(/　/g, "%20");
+    var res;
 
-      shop_name = getDirectoryComponent(current_path,targetShopName);
+    shop_name = getDirectoryComponent(current_path, targetShopName);
 
-      if(shop_name == 'directory'){
-          output(targetShopName+':is directory');
-          return false;
-      } else if(shop_name == null){
-          output(args_all+':No such shop information or directory');
-          return false;
-      } else {
-          for(var i=0; i< shop_name.length; i++){
-            var temp_shop = shop_name[i].replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
+    if (shop_name == 'directory') {
+        output(targetShopName + ':is directory');
+        return false;
+    } else if (shop_name == null) {
+        output(args_all + ':No such shop information or directory');
+        return false;
+    } else {
+        for (var i = 0; i < shop_name.length; i++) {
+            var temp_shop = shop_name[i].replace(/\s+/g, "%20"); //店舗名に空白が実装されていた場合に整頓する
             var allShopName = temp_shop.replace(/　/g, "%20");
-            if(targetShopName == allShopName){
-              search_flag = true;
+            if (targetShopName == allShopName) {
+                search_flag = true;
             }
-          }
-      }
+        }
+    }
 
-      if(search_flag){
-          getShopInfo(targetShopName, function(shopInfo){
-            for(var i=0; i< shopInfo.length; i++){
-              if(shopInfo[i].includes("Url(pc):")){
-                res = shopInfo[i].replace("Url(pc):","");
-              }
+    if (search_flag) {
+        getShopInfo(targetShopName, function(shopInfo) {
+            for (var i = 0; i < shopInfo.length; i++) {
+                if (shopInfo[i].includes("Url(pc):")) {
+                    res = shopInfo[i].replace("Url(pc):", "");
+                    console.log(shopInfo[i]);
+                    callback(res);
+                    return true;
+                }
             }
-            window.open(res);
             return true;
-          });
-      }else{
-          output(args_all+':No such shop information or directory');
-          return false;
-      }
-        //カレントディレクトリの構成を持ってくる
-      function getDirectoryComponent(path,targetSN){
-          if(isDirectory(path,targetSN) == 'false'){
-              let iterable = Object.values(path);
-              var entries = [];
-              var result;
-              var i=0;
-              for (let value of iterable) {
-                  entries.push(value);
-                  result = entries.shift();
-              }
-              return result;
-          } else if(isDirectory(path,targetSN) == 'directory'){
-              return 'directory';
-          } else if(isDirectory(path,targetSN) == 'No_directory') {
-              return null;
-          }
-      }
+        });
+    } else {
+        output(args_all + ':No such shop information or directory');
+        return false;
+    }
+    //カレントディレクトリの構成を持ってくる
+    function getDirectoryComponent(path, targetSN) {
+        if (isDirectory(path, targetSN) == 'false') {
+            let iterable = Object.values(path);
+            var entries = [];
+            var result;
+            var i = 0;
+            for (let value of iterable) {
+                entries.push(value);
+                result = entries.shift();
+            }
+            return result;
+        } else if (isDirectory(path, targetSN) == 'directory') {
+            return 'directory';
+        } else if (isDirectory(path, targetSN) == 'No_directory') {
+            return null;
+        }
+    }
 
-      //カレントディレクトリの構成がディレクトリか店情報かを判断する
-      function isDirectory(path, targetSN){
-          if (!path.hasOwnProperty('shops')) {
+    //カレントディレクトリの構成がディレクトリか店情報かを判断する
+    function isDirectory(path, targetSN) {
+        if (!path.hasOwnProperty('shops')) {
             let iterable = Object.values(Object.values(path));
             var entries = [];
             for (let value of iterable) {
                 if (value.hasOwnProperty('name')) {
-                    if(value.name == targetSN){
-                      return 'directory';
+                    if (value.name == targetSN) {
+                        return 'directory';
                     }
                 }
             }
             return 'No_directory';
-          } else {
+        } else {
             return 'false';
-          }
-      }
+        }
+    }
 
 
-        //店情報をapiからとってくる
-      function getShopInfo(shopName, callback){
-          var shopData = [];
-          getData().done(function(result) {
-              var json = result.results[0];
-              var temp = json.replace("</body></html>", "");
-              var temp2 = temp.replace("<html><head/><body>", "");
-              var data = JSON.parse(temp2);
-              let iterable = data.results.shop;
-              for (let value of iterable) {
-                  shopData.push('name:'+value.name);
-                  shopData.push('住所:'+value.address);
-                  shopData.push('Url(pc):'+value.urls.pc);
-                  shopData.push('Url(mobile):'+value.urls.mobile);
-                  shopData.push('ジャンル:'+value.genre.name);
-                }
-                callback(shopData);
-          }).fail(function(result) {
-              alert("Error");
-          });
+    //店情報をapiからとってくる
+    function getShopInfo(shopName, callback) {
+        var shopData = [];
+        getData().done(function(result) {
+            var json = result.results[0];
+            var temp = json.replace("</body></html>", "");
+            var temp2 = temp.replace("<html><head/><body>", "");
+            var data = JSON.parse(temp2);
+            let iterable = data.results.shop;
+            for (let value of iterable) {
+                shopData.push('name:' + value.name);
+                shopData.push('住所:' + value.address);
+                shopData.push('Url(pc):' + value.urls.pc);
+                shopData.push('Url(mobile):' + value.urls.mobile);
+                shopData.push('ジャンル:' + value.genre.name);
+            }
+            callback(shopData);
+        }).fail(function(result) {
+            alert("Error");
+        });
 
-          // ホットペッパーAPIを呼び出す
-          function getData() {
-              return $.ajax({
-                  url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword='+ shopName,
-                  type: "GET",
-                  contentType: "application/json; charset=utf-8"
-              });
-          }
-      }
+        // ホットペッパーAPIを呼び出す
+        function getData() {
+            return $.ajax({
+                url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword=' + shopName,
+                type: "GET",
+                contentType: "application/json; charset=utf-8"
+            });
+        }
+    }
 
-      function output(html) {
-          output_.insertAdjacentHTML('beforeEnd','<div>'+html+'</div>');
-          output_.scrollIntoView();
-          cmdLine_.scrollIntoView();
-      }
-  }
+    function output(html) {
+        output_.insertAdjacentHTML('beforeEnd', '<div>' + html + '</div>');
+        output_.scrollIntoView();
+        cmdLine_.scrollIntoView();
+    }
+}

@@ -169,7 +169,10 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 if (argslen == 1) {
                     output('illegal input');
                 } else {
-                    open(output_, cmdLine_, args_all, path.position);
+                    open1(output_, cmdLine_, args_all, path.position, function(res){
+                      window.open(res);
+                      console.log('callback');
+                    });
                 }
                 break;
             default:
@@ -182,6 +185,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
         sessionStorage.beforeCmd = before;
         sessionStorage.cmdCount = cmdCnt;
     }
+
     // author ito
     // get history when push up key
     if ( (e.keyCode == 38) && (upCnt < cmdCnt)) {
