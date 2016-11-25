@@ -165,6 +165,16 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'help':
                 output('<a href="https://www.google.com" target="_blank">https://www.google.com');
                 break;
+            case 'open':
+                if (argslen == 1) {
+                    output('illegal input');
+                } else {
+                    open1(output_, cmdLine_, args_all, path.position, function(res){
+                      window.open(res);
+                      console.log('callback');
+                    });
+                }
+                break;
             default:
                 if (cmd) {
                     output('CLICLI: ' + cmd + ': command not found');
@@ -175,6 +185,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
         sessionStorage.beforeCmd = before;
         sessionStorage.cmdCount = cmdCnt;
     }
+
     // author ito
     // get history when push up key
     if ( (e.keyCode == 38) && (upCnt < cmdCnt)) {
