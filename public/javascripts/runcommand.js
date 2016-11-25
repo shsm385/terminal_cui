@@ -152,14 +152,18 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     // author ito
     // get history when push up key
     if (e.keyCode == 38 && upCnt < cmdCnt) {
+        e.preventDefault();
         //console.log(upCnt);
         //console.log(cmdCnt);
         if (upCnt < 0) upCnt++;
         cmdLine_.value = before[cmdCnt - upCnt];
         upCnt++;
         sessionStorage.upCount = upCnt;
+        output_.scrollIntoView();
+        cmdLine_.scrollIntoView();
     }
     if (e.keyCode == 40 && upCnt >= 0) {
+        e.preventDefault();
         //console.log(upCnt);
         //console.log(cmdCnt);
         upCnt--;
@@ -169,8 +173,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             cmdLine_.value = "";
         }
         sessionStorage.upCount = upCnt;
+        output_.scrollIntoView();
+        cmdLine_.scrollIntoView();
     }
     if(e.keyCode == 9){
+        e.preventDefault();
         var str = cmdLine_.value;
         var keylist = str.split(" ");
         var key = keylist[keylist.length-1];
@@ -179,15 +186,12 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
         console.log(keylist);
         console.log(key);
         cmdLine_.value = "";
-        if(!path.hasOwnProperty('shops')){
+        if(!path.position.hasOwnProperty('shops')){
             let iterable = Object.values(Object.values(path.position));
             var entries = [];
             for (let value of iterable){
                 if(value.hasOwnProperty('name')){
-                    var word = " " + value.name;
-                    console.log(word);
-                    console.log(value);
-                    console.log(" "+key);
+                    var word = " " + value.name
                     if(word.indexOf(" " + key) != -1){
                         count++;
                         entries.push(value.name);
@@ -198,29 +202,27 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 cmdLine_.value += keylist[i] + " ";
             }
             if(count == 1){
-                console.log(entries);
+                //console.log(entries);
                 cmdLine_.value += entries;
             }else{
-                console.log(entries);
+                //console.log(entries);
                 output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
-                display(entries);
+                for(let re of entries){
+                    output('<div>' + re + '</div>');
+                }
                 cmdLine_.value += key;
                 cmdLine_.focus();
             }
         }else{
-            let iterable = Object.values(pathi.position);
+            let iterable = Object.values(path.position);
             var entries = [];
             var result;
-            for(let values of iterable){
-                var word = " " + values;
-                console.log(word);
-                console.log(values);
-                console.log(" "+key);
+            for(let value of iterable[1]){
+                var word = " " + value;
                 if(word.indexOf(" " + key) != -1){
                     count++;
                     entries.push(value);
-                    result = entries.shift();
-                }
+                }                
             }
             for(var i = 0; i < keylist.length-1;i++){
                 cmdLine_.value += keylist[i] + " ";
@@ -228,32 +230,12 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             if(count == 1){
                 cmdLine_.value += result;
             }else{
-                display(result);
+                output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
+                for(let re of entries){
+                    output('<div>' + re + '</div>');
+                }
                 cmdLine_.value += key;
             }
-        }
-
-        function display(result) {
-            var html = format(result);
-            html.push('</div>');
-            let i = result;
-            for(let value of i){
-                html.push('<span', value, '</span>', '<span class="space"', '>', '</span><br>');
-            }
-            output(html.join(''));
-        }
-
-        function format(entries) {
-            var max = 0;
-            let iterable = entries;
-            for(let value of iterable){
-                if(value.length > max){
-                    max = value.length;
-                }
-            }
-            var colWidth = max * 8;
-            var height = 'height 20px';
-            return ['<div class="ls-foles" style="-webkit-column-width:"', colWidth, 'px;', height, '">'];
         }
         function output(html){
             output_.insertAdjacentHTML('beforeEnd', html);
