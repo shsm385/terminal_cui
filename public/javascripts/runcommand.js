@@ -3,8 +3,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
     var before = sessionStorage.beforeCmd.split(",");
-    var cmdCnt = sessionStorage.cmdCount;
-    var upCnt = sessionStorage.upCount;
+    var cmdCnt = parseInt(sessionStorage.cmdCount);
+    var upCnt = parseInt(sessionStorage.upCount);
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
         if(cmdLine_.value !== ""){
