@@ -166,10 +166,10 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 output('<a href="https://www.google.com" target="_blank">https://www.google.com');
                 break;
             case 'open':
-                if (argslen == 2) {
-                    open(path.position,args_first);
-                } else {
+                if (argslen == 1) {
                     output('illegal input');
+                } else {
+                    open(output_, cmdLine_, args_all, path.position);
                 }
                 break;
             default:
