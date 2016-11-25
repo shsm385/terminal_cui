@@ -256,7 +256,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 cmdLine_.value += keylist[i] + " ";
             }
             if(count == 1){
-                cmdLine_.value += result;
+                cmdLine_.value += entries;
             }else if(count > 0){
                 output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'$&gt;</div><div style="display: inline">'+str+"</div>");
                 for(let re of entries){
