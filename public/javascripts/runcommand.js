@@ -2,9 +2,11 @@
 function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
+    var args = '';
     var before = sessionStorage.beforeCmd.split(",");
     var cmdCnt = parseInt(sessionStorage.cmdCount);
     var upCnt = parseInt(sessionStorage.upCount);
+    var args_all = '';
     if (e.keyCode == 13) {
         sessionStorage.upCount = 0;
         if(cmdLine_.value !== ""){
@@ -18,12 +20,24 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             cmd = args[0].toLowerCase();
             args_first = args[1];
             argslen = args.length;
+            for(var i=1; i< argslen; i++){
+              if(i == argslen -1){
+                args_all += args[i];
+              }else{
+                args_all += args[i]+' ';
+              }
+            }
             args = args.splice(1);
         }
 
 		// replace "." or ".." with a pass string only for a first argument
 		if (args_first !== undefined) {
 	        var tmpArgs = args_first.split("/");
+	        var isAbsolutePath = false;
+
+	        if (tmpArgs[0] === "") { // starts with "/"
+	        	isAbsolutePath = true;
+	        }
 			for (var i = 0; i < tmpArgs.length; i++) {
    	 		 	if (tmpArgs[i] === ".") {
    	 		 		var tmpArray = path.string.split("/");
@@ -57,7 +71,11 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
    				tmp += tmpArgs[j];
 			}
 			if (tmp === "") {
-				tmp = "/";
+				if (isAbsolutePath) {
+					tmp = "/";
+				} else {
+					tmp = path.string;
+				}
 			}
 			args_first = tmp;
 		}
@@ -126,6 +144,14 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             case 'sudo':
                 output('permission denied.');
                 break;
+            case 'cat':
+                if(argslen == 1){
+                  output(cmd+':select source as first argument');
+                  console.log(path.position);
+                }else{
+                  cat(output_, cmdLine_, args_all, path.position);
+                }
+                break;
             case 'ls':
                 if (argslen == 1) {
                     ls(output_, cmdLine_, path.position);
@@ -151,7 +177,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     }
     // author ito
     // get history when push up key
-    if (e.keyCode == 38 && upCnt < cmdCnt) {
+    if ( (e.keyCode == 38) && (upCnt < cmdCnt)) {
         e.preventDefault();
         //console.log(upCnt);
         //console.log(cmdCnt);

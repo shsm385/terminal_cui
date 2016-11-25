@@ -277,6 +277,130 @@ function cal(output_) {
     output_.insertAdjacentHTML('beforeEnd', outputStr);
 }
 
+
+//author umeki
+//show file and directory in current directory
+function cat(output_, cmdLine_, args_all, current_path){
+
+  var shop_name = '';
+  var search_flag = false;
+  console.log(current_path);
+  var temp_args = args_all.replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
+  var targetShopName = temp_args.replace(/　/g, "%20");
+
+  shop_name = getDirectoryComponent(current_path,targetShopName);
+
+  if(shop_name == 'directory'){
+      output(targetShopName+':is directory');
+      return false;
+  } else if(shop_name == null){
+      output(args_all+':No such shop information or directory');
+      return false;
+  } else {
+      console.log('else:'+shop_name.length);
+      for(var i=0; i< shop_name.length; i++){
+        var temp_shop = shop_name[i].replace(/\s+/g,"%20");  //店舗名に空白が実装されていた場合に整頓する
+        var allShopName = temp_shop.replace(/　/g, "%20");
+        console.log('shop_name'+ allShopName+'targetShopName:'+targetShopName);
+        if(targetShopName == allShopName){
+          search_flag = true;
+          console.log('seikou');
+        }
+      }
+  }
+
+  if(search_flag){
+      console.log(targetShopName);
+      getShopInfo(targetShopName, function(shopInfo){
+        console.log(shopInfo);
+        for(var i=0; i< shopInfo.length; i++){
+          output(shopInfo[i]);
+        }
+        return true;
+      });
+  }else{
+      output(args_all+':No such shop information or directory');
+      return false;
+  }
+    //カレントディレクトリの構成を持ってくる
+  function getDirectoryComponent(path,targetSN){
+      if(isDirectory(path,targetSN) == 'false'){
+          let iterable = Object.values(path);
+          var entries = [];
+          var result;
+          var i=0;
+          for (let value of iterable) {
+              entries.push(value);
+              result = entries.shift();
+          }
+          return result;
+      } else if(isDirectory(path,targetSN) == 'directory'){
+          return 'directory';
+      } else if(isDirectory(path,targetSN) == 'No_directory') {
+          return null;
+      }
+  }
+
+  //カレントディレクトリの構成がディレクトリか店情報かを判断する
+  function isDirectory(path, targetSN){
+      if (!path.hasOwnProperty('shops')) {
+        let iterable = Object.values(Object.values(path));
+        var entries = [];
+        for (let value of iterable) {
+            if (value.hasOwnProperty('name')) {
+                if(value.name == targetSN){
+                  return 'directory';
+                }
+            }
+        }
+        return 'No_directory';
+      } else {
+        return 'false';
+      }
+  }
+
+
+    //店情報をapiからとってくる
+  function getShopInfo(shopName, callback){
+      //var shopInfo = [];
+      var shopData = [];
+      getData().done(function(result) {
+          var json = result.results[0];
+          var temp = json.replace("</body></html>", "");
+          var temp2 = temp.replace("<html><head/><body>", "");
+          var data = JSON.parse(temp2);
+          let iterable = data.results.shop;
+          for (let value of iterable) {
+              shopData.push('name:'+value.name);
+              //shopData.push('店舗id:'+value.id);
+              shopData.push('住所:'+value.address);
+              shopData.push('Url(pc):'+value.urls.pc);
+              shopData.push('Url(mobile):'+value.urls.mobile);
+              shopData.push('ジャンル:'+value.genre.name);
+            }
+            callback(shopData);
+      }).fail(function(result) {
+          alert("Error");
+      });
+
+      // ホットペッパーAPIを呼び出す
+      function getData() {
+          return $.ajax({
+              url: 'http://webservice.recruit.co.jp/hotpepper/shop/v1/?key=ef48d4a8cf540416&format=json&keyword='+ shopName,
+              type: "GET",
+              contentType: "application/json; charset=utf-8"
+          });
+      }
+  }
+
+  function output(html) {
+      output_.insertAdjacentHTML('beforeEnd','<div>'+html+'</div>');
+      output_.scrollIntoView();
+      cmdLine_.scrollIntoView();
+  }
+
+}
+
 //author sakakibara
 // function of exit
 function exit(output_) {
@@ -373,7 +497,7 @@ function cd(path, targetPath, dir, output_) {
 
 		var targetDirs = targetPath.split("/");
 		for (var i = 0; i < targetDirs.length; i++) {
-			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory)
+			if (targetDirs[i] === "") { // the case that targetPath starts with "/"(root directory) etc
 				continue;
 			}
 
@@ -396,7 +520,7 @@ function cd(path, targetPath, dir, output_) {
 				return path.position;
 			}
 		}
-		
+
 
 		path.string = tmpPathStr;
 		path.position = goal;
@@ -405,7 +529,7 @@ function cd(path, targetPath, dir, output_) {
 
 	function findTargetDir(currDir, targetDir) {
 		var found = false;
-	
+
 		Object.keys(currDir).forEach(function(key) {
 			if ((key !== "name") && (targetDir === this[key].name)) {
 				found = true;
