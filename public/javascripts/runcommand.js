@@ -25,7 +25,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 		if (args_first !== undefined) {
 	        var tmpArgs = args_first.split("/");
 	        var isAbsolutePath = false;
-	        
+
 	        if (tmpArgs[0] === "") { // starts with "/"
 	        	isAbsolutePath = true;
 	        }
@@ -147,6 +147,13 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             	break;
             case 'help':
                 output('<a href="https://www.google.com" target="_blank">https://www.google.com');
+                break;
+            case 'open':
+                if (argslen == 2) {
+                    open(path.position,args_first);
+                } else {
+                    output('illegal input');
+                }
                 break;
             default:
                 if (cmd) {

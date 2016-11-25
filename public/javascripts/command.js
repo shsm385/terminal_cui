@@ -396,7 +396,7 @@ function cd(path, targetPath, dir, output_) {
 				return path.position;
 			}
 		}
-		
+
 
 		path.string = tmpPathStr;
 		path.position = goal;
@@ -405,7 +405,7 @@ function cd(path, targetPath, dir, output_) {
 
 	function findTargetDir(currDir, targetDir) {
 		var found = false;
-	
+
 		Object.keys(currDir).forEach(function(key) {
 			if ((key !== "name") && (targetDir === this[key].name)) {
 				found = true;
@@ -415,3 +415,17 @@ function cd(path, targetPath, dir, output_) {
 		return found;
 	}
 }
+
+  function open(path,args){
+      if(path.hasOwnProperty('shops')){
+        let iterable = Object.values(Object.values(path));
+        var entries = [];
+        for (let value of iterable) {
+            if (value.hasOwnProperty('name')) {
+                entries.push(value.name);
+            }
+              console.log(entries);
+              console.log(args);
+        }
+      }
+  }
