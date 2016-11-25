@@ -54,7 +54,6 @@ var Terminal = Terminal || function(containerId) {
     // author tominaga
     // set focus to a input form
     function setFocus() {
-    	console.log("click");
     	cmdLine_.focus();
     }
 
