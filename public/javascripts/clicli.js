@@ -33,7 +33,7 @@ var Terminal = Terminal || function(containerId) {
     sessionStorage.beforeCmd = beforeCmd;
     sessionStorage.cmdCount = cmdCount;
     sessionStorage.upCount = upCount;
-    container_.insertAdjacentHTML('beforeEnd', ['<output></output>',
+    container_.insertAdjacentHTML('beforeEnd', ['<div align="right"><a href="http://webservice.recruit.co.jp/" target="blank"><img src="http://webservice.recruit.co.jp/banner/hotpepper-s.gif" alt="ホットペッパー Webサービス" width="135" height="17" border="0" title="ホットペッパー Webサービス"></a></div><output></output>',
         '<div id="input-line" class="input-line">',
         '<div class="prompt">'+sessionStorage.getItem("currentUserName")+'$&gt;</div><div><input class="cmdline" autofocus /></div>',
         '</div>'
