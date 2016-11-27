@@ -153,11 +153,12 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 }
                 break;
             case 'ls':
-                if (argslen == 1) {
-                    ls(output_, cmdLine_, path.position);
+                /*if (argslen == 1) {
+                    ls(output_, cmdLine_, path.position, dir);
                 } else {
                     output('illegal input');
-                }
+                }*/
+                ls(output_, cmdLine_, path.position, args_first, dir.root);
                 break;
             case 'cd':
             	cd(path, args_first, dir, output_);
