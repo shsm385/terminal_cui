@@ -216,6 +216,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     if(e.keyCode == 9){
         e.preventDefault();
         var str = cmdLine_.value;
+        if(str != ""){
         var keylist = str.split(" ");
         var key = keylist[keylist.length-1];
         var count = 0;
@@ -282,6 +283,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             output_.insertAdjacentHTML('beforeEnd', html);
             output_.scrollIntoView();
             cmdLine_.scrollIntoView();
+        }
         }
     }
     // aouthor shimada
