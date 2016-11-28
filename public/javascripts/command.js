@@ -203,7 +203,7 @@ function su(args_first, output_ ,path, dir) {
             inputPass_.readOnly = true;
             inputPass_.autofocus = false;
             cmdLine_.style.display = "";
-            cd(path,sessionStorage.setItem("currentUserHomeDirectory"),dir,output_);
+            cd(path,sessionStorage.getItem("currentUserHomeDirectory"),dir,output_);
             pass_.removeAttribute('id');
             pass_.classList.add('line');
             document.querySelector('#input-line .cmdline').focus();
