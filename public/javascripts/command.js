@@ -475,38 +475,38 @@ function ls(output_, cmdLine_, path, target, root) {
         output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
-    
+
     function existsTargetPath(curr, target, root) {
     	if (target === undefined) { // target means a current directory
     		return curr;
     	}
-    
+
     	var tmpTarget = " " + target;
     	var currDir = (tmpTarget.indexOf(" /") !== -1) ? root : curr;
-    	
+
     	var targetPaths = target.split("/");
     	for (var i = 0; i < targetPaths.length; i++) {
     		if (targetPaths[i] === "") {
     			continue;
     		}
-    	
+
     		var found = false;
     		var tmpDir = currDir;
-    		
+
 	    	Object.keys(currDir).forEach(function(key) {
     			if (targetPaths[i] === this[key].name) {
     				found = true;
     				tmpDir = this[key];
     			}
     		}, currDir);
-    		
+
     		if (found) {
     			currDir = tmpDir;
     		} else {
     			return null;
     		}
     	}
-    	
+
     	return currDir;
     }
 }
@@ -519,6 +519,7 @@ function cd(path, targetPath, dir, output_) {
     if (targetPath === undefined) {
         path.string = "/";
         path.position = dir.root;
+        changePrompt(path);
         return dir.root; // go to a root directory
     } else {
         var target = " " + targetPath;
