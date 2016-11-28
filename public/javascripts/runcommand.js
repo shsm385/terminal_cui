@@ -136,7 +136,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 break;
             case 'exit':
                 if (argslen == 1) {
-                    exit(output_, path);
+                    exit(output_, path, dir);
                 } else {
                     output('illegal input');
                 }

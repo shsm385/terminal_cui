@@ -203,7 +203,7 @@ function su(args_first, output_ ,path, dir) {
             inputPass_.readOnly = true;
             inputPass_.autofocus = false;
             cmdLine_.style.display = "";
-            cd(path,userHomeDirectory,dir,output_);
+            cd(path,sessionStorage.setItem("currentUserHomeDirectory"),dir,output_);
             pass_.removeAttribute('id');
             pass_.classList.add('line');
             document.querySelector('#input-line .cmdline').focus();
@@ -221,7 +221,12 @@ function su(args_first, output_ ,path, dir) {
                         if (data[i].pass == pass) {
                             console.log("exist and correct pass!");
                             flag = 1;
-                            userHomeDirectory = data[i].userHomeDirectory;
+                            if(data[i].userHomeDirectory == undefined){
+                              userHomeDirectory = "/";
+                            }
+                            else{
+                                userHomeDirectory = data[i].userHomeDirectory;
+                            }
                             break;
                         }
                     }
@@ -404,7 +409,7 @@ function cat(output_, cmdLine_, args_all, current_path) {
 
 //author sakakibara
 // function of exit
-function exit(output_, path) {
+function exit(output_, path, dir) {
     var outputStr;
     if (sessionStorage.getItem("currentUserName") == "guest") {
         outputStr = '<div>you are guest account</div>';
@@ -414,8 +419,9 @@ function exit(output_, path) {
     } else {
         outputStr = '<div>exit ' + sessionStorage.getItem("currentUserName") + '</div>';
         sessionStorage.setItem("currentUserName", "guest");
+        sessionStorage.setItem("currentUserHomeDirectory", "/");
         output_.insertAdjacentHTML('beforeEnd', outputStr);
-        changePrompt(path);
+        cd(path, sessionStorage.getItem("currentUserHomeDirectory"), dir, output_);
     }
 }
 
