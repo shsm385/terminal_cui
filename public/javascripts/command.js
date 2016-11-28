@@ -203,10 +203,10 @@ function su(args_first, output_ ,path, dir) {
             inputPass_.readOnly = true;
             inputPass_.autofocus = false;
             cmdLine_.style.display = "";
-            cd(path,sessionStorage.getItem("currentUserHomeDirectory"),dir,output_);
             pass_.removeAttribute('id');
             pass_.classList.add('line');
             document.querySelector('#input-line .cmdline').focus();
+            cd(path,sessionStorage.getItem("currentUserHomeDirectory"),dir,output_);
         }
     }
 
@@ -221,11 +221,11 @@ function su(args_first, output_ ,path, dir) {
                         if (data[i].pass == pass) {
                             console.log("exist and correct pass!");
                             flag = 1;
-                            if(data[i].userHomeDirectory == undefined){
+                            if(data[i].homeDirectory == undefined){
                               userHomeDirectory = "/";
                             }
                             else{
-                                userHomeDirectory = data[i].userHomeDirectory;
+                                userHomeDirectory = data[i].homeDirectory;
                             }
                             break;
                         }
