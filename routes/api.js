@@ -31,6 +31,7 @@ router.route('/users')
         user.userName = req.body.userName;
         user.pass = req.body.pass;
         user.postNumber = req.body.postNumber;
+        user.homeDirectory = req.body.homeDirectory;
         user.favorite = req.body.favorite;
 
         // ユーザ情報をセーブする．
@@ -70,6 +71,7 @@ router.route('/users/:userName')
             // ユーザの各カラムの情報を更新する．
             user.pass = req.body.pass;
             user.postNumber = req.body.postNumber;
+            user.homeDirectory = req.body.homeDirectory;
             user.favorite = req.body.favorite;
 
             user.save(function(err) {

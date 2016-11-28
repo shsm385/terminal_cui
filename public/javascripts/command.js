@@ -184,7 +184,7 @@ function mu(args_first, output_) {
 
 //author sakakibara
 // function of su
-function su(args_first, output_) {
+function su(args_first, output_ ,path, dir) {
     var userName = args_first;
     var cmdLine_ = document.querySelector('#input-line');
     cmdLine_.style.display = "none";
@@ -212,6 +212,7 @@ function su(args_first, output_) {
     function switchUser(userName, pass) {
         var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
         var flag = -1;
+        var userHomeDirectory = "";
         $.get(requestURL,
             function(data) {
                 for (var i = 0; i < data.length; i++) {
@@ -219,6 +220,12 @@ function su(args_first, output_) {
                         if (data[i].pass == pass) {
                             console.log("exist and correct pass!");
                             flag = 1;
+                            if(data[i].homeDirectory == undefined){
+                              userHomeDirectory = "/";
+                            }
+                            else{
+                                userHomeDirectory = data[i].homeDirectory;
+                            }
                             break;
                         }
                     }
@@ -228,8 +235,9 @@ function su(args_first, output_) {
                 } else if (flag == 1) {
                     output_.insertAdjacentHTML('beforeEnd', '<div>switched to ' + userName + '</div>');
                     sessionStorage.setItem("currentUserName", userName);
-                    $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '@:$');
+                    sessionStorage.setItem("currentUserHomeDirectory", userHomeDirectory);
                     console.log("set to " + sessionStorage.getItem("currentUserName"));
+                    cd(path,userHomeDirectory,dir,output_);
                 }
             },
             "json"
@@ -401,7 +409,7 @@ function cat(output_, cmdLine_, args_all, current_path) {
 
 //author sakakibara
 // function of exit
-function exit(output_) {
+function exit(output_, path, dir) {
     var outputStr;
     if (sessionStorage.getItem("currentUserName") == "guest") {
         outputStr = '<div>you are guest account</div>';
@@ -411,8 +419,9 @@ function exit(output_) {
     } else {
         outputStr = '<div>exit ' + sessionStorage.getItem("currentUserName") + '</div>';
         sessionStorage.setItem("currentUserName", "guest");
+        sessionStorage.setItem("currentUserHomeDirectory", "/");
         output_.insertAdjacentHTML('beforeEnd', outputStr);
-        $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '$&gt;');
+        cd(path, "/", dir, output_);
     }
 }
 
@@ -475,38 +484,38 @@ function ls(output_, cmdLine_, path, target, root) {
         output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
-    
+
     function existsTargetPath(curr, target, root) {
     	if (target === undefined) { // target means a current directory
     		return curr;
     	}
-    
+
     	var tmpTarget = " " + target;
     	var currDir = (tmpTarget.indexOf(" /") !== -1) ? root : curr;
-    	
+
     	var targetPaths = target.split("/");
     	for (var i = 0; i < targetPaths.length; i++) {
     		if (targetPaths[i] === "") {
     			continue;
     		}
-    	
+
     		var found = false;
     		var tmpDir = currDir;
-    		
+
 	    	Object.keys(currDir).forEach(function(key) {
     			if (targetPaths[i] === this[key].name) {
     				found = true;
     				tmpDir = this[key];
     			}
     		}, currDir);
-    		
+
     		if (found) {
     			currDir = tmpDir;
     		} else {
     			return null;
     		}
     	}
-    	
+
     	return currDir;
     }
 }
@@ -519,6 +528,7 @@ function cd(path, targetPath, dir, output_) {
     if (targetPath === undefined) {
         path.string = "/";
         path.position = dir.root;
+        changePrompt(path);
         return dir.root; // go to a root directory
     } else {
         var target = " " + targetPath;
@@ -563,6 +573,7 @@ function cd(path, targetPath, dir, output_) {
 
         path.string = tmpPathStr;
         path.position = goal;
+        changePrompt(path);
         return goal;
     }
 
@@ -697,4 +708,18 @@ function open1(output_, cmdLine_, args_all, current_path, callback) {
         output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
+}
+
+//author sakakibara
+// プロンプトの中身が変わるときに呼び出す関数
+function changePrompt(path){
+  var currentPathString = "";
+  if(path.string == "/"){
+    currentPathString = "/";
+  }
+  else {
+    var arrayOfStrings = path.string.split("/");
+    currentPathString = arrayOfStrings[arrayOfStrings.length -1];
+  }
+  $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'@CLICLI '+'<font color="white">'+currentPathString+'</font>'+' $');
 }
