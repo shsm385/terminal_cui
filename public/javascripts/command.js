@@ -184,7 +184,7 @@ function mu(args_first, output_) {
 
 //author sakakibara
 // function of su
-function su(args_first, output_ ,path) {
+function su(args_first, output_ ,path, dir) {
     var userName = args_first;
     var cmdLine_ = document.querySelector('#input-line');
     cmdLine_.style.display = "none";
@@ -203,6 +203,7 @@ function su(args_first, output_ ,path) {
             inputPass_.readOnly = true;
             inputPass_.autofocus = false;
             cmdLine_.style.display = "";
+            cd(path,userHomeDirectory,dir,output_);
             pass_.removeAttribute('id');
             pass_.classList.add('line');
             document.querySelector('#input-line .cmdline').focus();
@@ -212,6 +213,7 @@ function su(args_first, output_ ,path) {
     function switchUser(userName, pass) {
         var requestURL = "http://ec2-52-192-48-132.ap-northeast-1.compute.amazonaws.com:3000/api/users";
         var flag = -1;
+        var userHomeDirectory = "";
         $.get(requestURL,
             function(data) {
                 for (var i = 0; i < data.length; i++) {
@@ -219,6 +221,7 @@ function su(args_first, output_ ,path) {
                         if (data[i].pass == pass) {
                             console.log("exist and correct pass!");
                             flag = 1;
+                            userHomeDirectory = data[i].userHomeDirectory;
                             break;
                         }
                     }
@@ -228,7 +231,7 @@ function su(args_first, output_ ,path) {
                 } else if (flag == 1) {
                     output_.insertAdjacentHTML('beforeEnd', '<div>switched to ' + userName + '</div>');
                     sessionStorage.setItem("currentUserName", userName);
-                    changePrompt(path);
+                    sessionStorage.setItem("currentUserHomeDirectory", userHomeDirectory);
                     console.log("set to " + sessionStorage.getItem("currentUserName"));
                 }
             },

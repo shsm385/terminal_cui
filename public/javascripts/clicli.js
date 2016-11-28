@@ -22,6 +22,7 @@ var Terminal = Terminal || function(containerId) {
     var container_ = document.getElementById(containerId);
     var currentUserName = "guest";
     var currentUserPostNumber = "";
+    var currentUserHomeDirectory = "/";
     var dir = createPath(csv2Array("./public/models/csv/osaka.csv"));
     var path = {position:dir.root, string:"/"};
     sessionStorage.setItem("currentUserName", currentUserName);

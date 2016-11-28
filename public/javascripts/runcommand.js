@@ -118,7 +118,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                     output('ilegal input');
                 }
                 else if (argslen == 2) {
-                    su(args_first, output_, path);
+                    su(args_first, output_, path, dir);
                 } else {
                     output('ilegal input');
                 }
