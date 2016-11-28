@@ -206,7 +206,6 @@ function su(args_first, output_ ,path, dir) {
             pass_.removeAttribute('id');
             pass_.classList.add('line');
             document.querySelector('#input-line .cmdline').focus();
-            cd(path,sessionStorage.getItem("currentUserHomeDirectory"),dir,output_);
         }
     }
 
@@ -238,6 +237,7 @@ function su(args_first, output_ ,path, dir) {
                     sessionStorage.setItem("currentUserName", userName);
                     sessionStorage.setItem("currentUserHomeDirectory", userHomeDirectory);
                     console.log("set to " + sessionStorage.getItem("currentUserName"));
+                    cd(path,userHomeDirectory,dir,output_);
                 }
             },
             "json"
@@ -421,7 +421,7 @@ function exit(output_, path, dir) {
         sessionStorage.setItem("currentUserName", "guest");
         sessionStorage.setItem("currentUserHomeDirectory", "/");
         output_.insertAdjacentHTML('beforeEnd', outputStr);
-        cd(path, sessionStorage.getItem("currentUserHomeDirectory"), dir, output_);
+        cd(path, "/", dir, output_);
     }
 }
 
