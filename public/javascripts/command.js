@@ -416,8 +416,15 @@ function exit(output_) {
     }
 }
 
-//aouthor shimada
-function ls(output_, cmdLine_, path) {
+//author shimada, tominaga
+function ls(output_, cmdLine_, path, target, root) {
+	var ret = existsTargetPath(path, target, root);
+	if (ret === null) {
+	    output_.insertAdjacentHTML('beforeEnd', '<div>No such file or directory</div>');
+	    return;
+	}
+	path = ret;
+
     if (!path.hasOwnProperty('shops')) {
         let iterable = Object.values(Object.values(path));
         var entries = [];
@@ -467,6 +474,40 @@ function ls(output_, cmdLine_, path) {
         output_.insertAdjacentHTML('beforeEnd', html);
         output_.scrollIntoView();
         cmdLine_.scrollIntoView();
+    }
+    
+    function existsTargetPath(curr, target, root) {
+    	if (target === undefined) { // target means a current directory
+    		return curr;
+    	}
+    
+    	var tmpTarget = " " + target;
+    	var currDir = (tmpTarget.indexOf(" /") !== -1) ? root : curr;
+    	
+    	var targetPaths = target.split("/");
+    	for (var i = 0; i < targetPaths.length; i++) {
+    		if (targetPaths[i] === "") {
+    			continue;
+    		}
+    	
+    		var found = false;
+    		var tmpDir = currDir;
+    		
+	    	Object.keys(currDir).forEach(function(key) {
+    			if (targetPaths[i] === this[key].name) {
+    				found = true;
+    				tmpDir = this[key];
+    			}
+    		}, currDir);
+    		
+    		if (found) {
+    			currDir = tmpDir;
+    		} else {
+    			return null;
+    		}
+    	}
+    	
+    	return currDir;
     }
 }
 
@@ -525,6 +566,7 @@ function cd(path, targetPath, dir, output_) {
         return goal;
     }
 
+	/*
     function findTargetDir(currDir, targetDir) {
         var found = false;
 
@@ -536,6 +578,7 @@ function cd(path, targetPath, dir, output_) {
 
         return found;
     }
+    */
 }
 
 function open1(output_, cmdLine_, args_all, current_path, callback) {

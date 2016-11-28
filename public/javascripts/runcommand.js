@@ -34,6 +34,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 		if (args_first !== undefined) {
 	        var tmpArgs = args_first.split("/");
 	        var isAbsolutePath = false;
+	        var addCurrentPath = false;
 
 	        if (tmpArgs[0] === "") { // starts with "/"
 	        	isAbsolutePath = true;
@@ -49,6 +50,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 	      		} else if (tmpArgs[i] === "..") {
 	      			tmpArgs.splice(i, 1); // remove ".."
 	   				if (i === 0) {
+	   					addCurrentPath = true;
    		 		 		var tmpArray = path.string.split("/");
    		 		 		for (var k = 0; k < tmpArray.length - 1; k++) { // assume that path.string doesn't end with "/"
 	 			 			tmpArgs.splice(i++ , 0, tmpArray[k]);
@@ -71,7 +73,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
    				tmp += tmpArgs[j];
 			}
 			if (tmp === "") {
-				if (isAbsolutePath) {
+				if (isAbsolutePath || addCurrentPath) {
 					tmp = "/";
 				} else {
 					tmp = path.string;
@@ -79,6 +81,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
 			}
 			args_first = tmp;
 		}
+		console.log("args: " + args_first);
 
         output_.appendChild(pressEnterKey(node));
         //console.log(before);
@@ -153,11 +156,12 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 }
                 break;
             case 'ls':
-                if (argslen == 1) {
-                    ls(output_, cmdLine_, path.position);
+                /*if (argslen == 1) {
+                    ls(output_, cmdLine_, path.position, dir);
                 } else {
                     output('illegal input');
-                }
+                }*/
+                ls(output_, cmdLine_, path.position, args_first, dir.root);
                 break;
             case 'cd':
             	cd(path, args_first, dir, output_);
