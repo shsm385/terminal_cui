@@ -184,7 +184,7 @@ function mu(args_first, output_) {
 
 //author sakakibara
 // function of su
-function su(args_first, output_) {
+function su(args_first, output_ ,path) {
     var userName = args_first;
     var cmdLine_ = document.querySelector('#input-line');
     cmdLine_.style.display = "none";
@@ -228,7 +228,7 @@ function su(args_first, output_) {
                 } else if (flag == 1) {
                     output_.insertAdjacentHTML('beforeEnd', '<div>switched to ' + userName + '</div>');
                     sessionStorage.setItem("currentUserName", userName);
-                    $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '@:$');
+                    changePrompt(path);
                     console.log("set to " + sessionStorage.getItem("currentUserName"));
                 }
             },
@@ -401,7 +401,7 @@ function cat(output_, cmdLine_, args_all, current_path) {
 
 //author sakakibara
 // function of exit
-function exit(output_) {
+function exit(output_, path) {
     var outputStr;
     if (sessionStorage.getItem("currentUserName") == "guest") {
         outputStr = '<div>you are guest account</div>';
@@ -412,7 +412,7 @@ function exit(output_) {
         outputStr = '<div>exit ' + sessionStorage.getItem("currentUserName") + '</div>';
         sessionStorage.setItem("currentUserName", "guest");
         output_.insertAdjacentHTML('beforeEnd', outputStr);
-        $('.prompt:last').html(sessionStorage.getItem("currentUserName") + '$&gt;');
+        changePrompt(path);
     }
 }
 
@@ -563,6 +563,7 @@ function cd(path, targetPath, dir, output_) {
 
         path.string = tmpPathStr;
         path.position = goal;
+        changePrompt(path);
         return goal;
     }
 
@@ -697,4 +698,18 @@ function open1(output_, cmdLine_, args_all, current_path, callback) {
         output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
+}
+
+//author sakakibara
+// プロンプトの中身が変わるときに呼び出す関数
+function changePrompt(path){
+  var currentPathString = "";
+  if(path.string == "/"){
+    currentPathString = "/";
+  }
+  else {
+    var arrayOfStrings = path.string.split("/");
+    currentPathString = arrayOfStrings[arrayOfStrings.length -1];
+  }
+  $('.prompt:last').html(sessionStorage.getItem("currentUserName")+'@CLICLI '+'<font color="white">'+currentPathString+'</font>'+' $');
 }

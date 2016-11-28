@@ -118,7 +118,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                     output('ilegal input');
                 }
                 else if (argslen == 2) {
-                    su(args_first, output_, cmdLine_);
+                    su(args_first, output_, path);
                 } else {
                     output('ilegal input');
                 }
@@ -136,7 +136,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 break;
             case 'exit':
                 if (argslen == 1) {
-                    exit(output_);
+                    exit(output_, path);
                 } else {
                     output('illegal input');
                 }
@@ -266,7 +266,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 if(word.indexOf(" " + key) != -1){
                     count++;
                     entries.push(value);
-                }                
+                }
             }
             for(var i = 0; i < keylist.length-1;i++){
                 cmdLine_.value += keylist[i] + " ";
@@ -279,7 +279,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                     output('<div>' + re + '</div>');
                 }
                 cmdLine_.value += key;
-            }else if(count == 0){    
+            }else if(count == 0){
                 cmdLine_.value = str;
             }
         }

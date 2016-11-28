@@ -35,7 +35,7 @@ var Terminal = Terminal || function(containerId) {
     sessionStorage.upCount = upCount;
     container_.insertAdjacentHTML('beforeEnd', ['<div align="right"><a href="http://webservice.recruit.co.jp/" target="blank"><img src="http://webservice.recruit.co.jp/banner/hotpepper-s.gif" alt="ホットペッパー Webサービス" width="135" height="17" border="0" title="ホットペッパー Webサービス"></a></div><output></output>',
         '<div id="input-line" class="input-line">',
-        '<div class="prompt">'+sessionStorage.getItem("currentUserName")+'$&gt;</div><div><input class="cmdline" autofocus /></div>',
+        '<div class="prompt">'+sessionStorage.getItem("currentUserName")+'@CLICLI '+'<font color="white">'+path.string+'</font>'+' $</div><div><input class="cmdline" autofocus /></div>',
         '</div>'
     ].join(''));
     var cmdLine_ = container_.querySelector('#input-line .cmdline');
@@ -46,11 +46,11 @@ var Terminal = Terminal || function(containerId) {
     // aouthor shimada
     // keydown event
     cmdLine_.addEventListener("keydown", newCommand, false);
-    
+
     // author tominaga
     // click event
     document.addEventListener("click", setFocus, false);
-    
+
     // author tominaga
     // set focus to a input form
     function setFocus() {
