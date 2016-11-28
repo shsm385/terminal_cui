@@ -66,7 +66,7 @@ function getShopName(area) {
     // ホットペッパーAPIを呼び出す
     function getData() {
         return $.ajax({
-            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=100',
+            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=40',
             type: "GET",
             contentType: "application/json; charset=utf-8"
         });
