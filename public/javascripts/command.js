@@ -17,7 +17,7 @@ function clear(input, output_, interlace_) {
     document.documentElement.style.height = '100%';
 }
 
-// author shimada
+// author shimada, tominaga
 function man(args_first, CMDS_) {
     switch (args_first) {
         case 'ls':
@@ -65,7 +65,7 @@ function man(args_first, CMDS_) {
     }
 }
 
-// author ito
+// author shimada
 // function runninng sl
 function sl(output_, cmdLine_) {
     var inputLine_ = document.querySelector('#input-line');
@@ -171,7 +171,7 @@ function mu(args_first, output_) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].userName == uname) {
                         flag = 1;
-                        output_.insertAdjacentHTML('beforeEnd', '<div>user name:' + uname + ' is already exist</div>');
+                        output_.insertAdjacentHTML('beforeEnd', '<div>user name:' + uname + ' already exists</div>');
                         break;
                     } else {
                         flag = 0;
@@ -256,9 +256,9 @@ function su(args_first, output_ ,path, dir) {
 // author ito
 // show history function
 function history(output_) {
-    var comands = sessionStorage.beforeCmd.split(",");
+    var commands = sessionStorage.beforeCmd.split(",");
     for (var i = 0; i < comands.length; i++) {
-        output_.insertAdjacentHTML('beforeEnd', '<div>' + comands[i] + '</div>');
+        output_.insertAdjacentHTML('beforeEnd', '<div>' + commands[i] + '</div>');
     }
 }
 

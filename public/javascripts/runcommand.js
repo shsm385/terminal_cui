@@ -1,4 +1,4 @@
-// aouthor shimada
+// author shimada
 function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
     var cmd = '';
     var args_first = '';
@@ -120,7 +120,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 else if (argslen == 2) {
                     su(args_first, output_, path, dir);
                 } else {
-                    output('ilegal input');
+                    output('illegal input');
                 }
                 var uname = document.querySelector('#uname');
                 break;
@@ -234,7 +234,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             var entries = [];
             for (let value of iterable){
                 if(value.hasOwnProperty('name')){
-                    var word = " " + value.name
+                    var word = " " + value.name;
                     if(word.indexOf(" " + key) != -1){
                         count++;
                         entries.push(value.name);
@@ -291,7 +291,7 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
         }
         }
     }
-    // aouthor shimada
+    // author shimada
     function output(html) {
         output_.insertAdjacentHTML('beforeEnd', html);
         output_.scrollIntoView();
