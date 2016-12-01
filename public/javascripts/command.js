@@ -1,4 +1,4 @@
-//aouthor shimada
+//author shimada
 function pressEnterKey(node) {
     var line = node.parentNode.parentNode.cloneNode(true);
     line.removeAttribute('id');
@@ -10,14 +10,14 @@ function pressEnterKey(node) {
     return line;
 }
 
-// aouthor shimada
+// author shimada
 function clear(input, output_, interlace_) {
     output_.innerHTML = '';
     input.value = '';
     document.documentElement.style.height = '100%';
 }
 
-// aouthor shimada
+// author shimada
 function man(args_first, CMDS_) {
     switch (args_first) {
         case 'ls':
@@ -39,7 +39,7 @@ function man(args_first, CMDS_) {
         case 'pwd':
             return 'pwd - return working directory name';
         case 'open':
-            return 'open storename - open the shop information site';
+            return 'open - open the shop information site';
         case 'exit':
             return 'exit - logout';
         case 'su':
@@ -48,6 +48,14 @@ function man(args_first, CMDS_) {
             return 'mu - sign up user account';
         case 'sl':
             return 'sl - runninng SL';
+        case 'help':
+        	return 'help - display how to use commands';
+       	case 'history':
+       		return 'history - display histories of typed commands';
+   		case 'cal':
+   			return 'cal - display a calendar';
+		case 'sudo':
+			return 'sudo - execute a command as a administrator';
         default:
             if (args_first === undefined) {
                 return CMDS_.join('  ');
