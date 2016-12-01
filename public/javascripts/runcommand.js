@@ -167,7 +167,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             	cd(path, args_first, dir, output_);
             	break;
             case 'help':
-                output('<a href="https://www.google.com" target="_blank">https://www.google.com');
+                //output('<a href="https://www.google.com" target="_blank">https://www.google.com');
+                output('type "man"');
                 break;
             case 'open':
                 if (argslen == 1) {

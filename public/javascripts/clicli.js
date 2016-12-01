@@ -7,15 +7,14 @@ function Load() {
         xhr.send();
     };
 }
-// author shimada
+// author shimada, tominaga
 var Terminal = Terminal || function(containerId) {
     window.URL = window.URL || window.webkitURL;
     window.requestFileSystem = window.requestFileSystem ||
         window.webkitRequestFileSystem;
 
     const CMDS_ = [
-        'ls', 'cd', 'mv', 'rm', 'cp', 'clear', 'man', 'less', 'pwd', 'open',
-        'exit', 'su', 'mu'
+        'ls', 'cd', 'clear', 'man', 'cat', 'pwd', 'open', 'exit', 'su', 'mu', 'help', 'history', 'cal', 'sudo'
     ];
     var fs_ = null;
     var cwd_ = null;
