@@ -247,8 +247,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
                 //console.log(entries);
                 cmdLine_.value += entries;
             }else if(count != 0){
-                //console.log(entries);
-                output('<div class="prompt">'+sessionStorage.currentUserName+'@CLICLI '+'<font color="white">'+path.string+'</font>'+' $</div><div style="display: inline">'+str+"</div>");
+                //console.log(path.position);
+                output('<div class="prompt" style="display: inline">'+sessionStorage.currentUserName+'@CLICLI '+'<font color="white">'+path.position.name+'</font>'+' $</div><div style="display: inline">'+str+"</div>");
                 for(let re of entries){
                     output('<div>' + re + '</div>');
                 }
