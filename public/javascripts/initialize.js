@@ -16,7 +16,7 @@ util.getDocHeight = function() {
     );
 };
 
-// aouthor shimada
+// author shimada
 function createPath(str) {
     var dir = {
         root: {
@@ -43,7 +43,7 @@ function createPath(str) {
     return dir;
 }
 
-// aouthor shimada
+// author shimada
 function csv2Array(filePath) {
     var csvData = [];
     var data = new XMLHttpRequest();
@@ -75,8 +75,8 @@ function getShopName(area) {
         var json = result.results[0];
         var temp = json.replace("</body></html>", "");
         var temp2 = temp.replace("<html><head/><body>", "");
-	var temp3 = temp2.replace('駅2分♪NEW OPEN<毎日ok 円="円" 時間飲み放題="時間飲み放題">', '駅2分♪NEW OPEN<毎日OK!2時間飲み放題⇒980円>');
-	var temp4 = temp3.replace('</毎日ok>', "");
+	    var temp3 = temp2.replace('駅2分♪NEW OPEN<毎日ok 円="円" 時間飲み放題="時間飲み放題">', '駅2分♪NEW OPEN<毎日OK!2時間飲み放題⇒980円>');
+	    var temp4 = temp3.replace('</毎日ok>', "");
         var data = JSON.parse(temp4);
         let iterable = data.results.shop;
         for (let value of iterable) {

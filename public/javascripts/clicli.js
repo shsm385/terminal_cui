@@ -57,21 +57,21 @@ var Terminal = Terminal || function(containerId) {
     	cmdLine_.focus();
     }
 
-    // aouthor shimada
+    // author shimada
     // runnninng command
     function newCommand(e) {
         runCommand(e, this, output_, cmdLine_, CMDS_, dir, path);
     }
 
 
-    // aouthor shimada
+    // author shimada
     function output(html) {
         output_.insertAdjacentHTML('beforeEnd', html);
         //output_.scrollIntoView();
         cmdLine_.scrollIntoView();
     }
 
-    // aouthor shimada
+    // author shimada
     return {
         initFS: function(persistent, size) {
             //output('<div>Welcome to ' + document.title + '</div>');
@@ -88,7 +88,7 @@ var Terminal = Terminal || function(containerId) {
             output("<div>　 　 ;:　　　 　　　　　　　　';; </div>");
             output((new Date()).toLocaleString());
             output('<div>Documentation: type "help"</div>');
-            output('<div>Swich user to “su”</div>');
+            output('<div>Switch user to “su”</div>');
             output('<div>Make user account to “mu”</div>');
             if (!!!window.requestFileSystem) {
                 output('<div>Sorry! The FileSystem APIs are not available in your browser.</div>');
