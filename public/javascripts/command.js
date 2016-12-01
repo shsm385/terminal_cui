@@ -271,7 +271,7 @@ function cal(output_) {
     }
     myDate.setDate(1);
     var week = myDate.getDay();
-    var outputStr = '<div style="margin-left:3em">' + year + '年</div><div style="margin-left:3.5em">' + month + '月</div><div style="margin-left:' + (week + 1.25) + 'em">';
+    var outputStr = '<div style="margin-left:3.5em">' + year + '年</div><div style="margin-left:4em">' + month + '月</div><div style="margin-left:' + (week + 2.5) + 'em">';
     //for (var k = 0; k < week; k++){
     //  outputStr += "--- ";
     //}
@@ -281,7 +281,7 @@ function cal(output_) {
         if (i - week > -1) outputStr += (i + 1 - week) + " ";
         if (i % 7 == 6) outputStr += '</div>';
     }
-    console.log(outputStr);
+    //console.log(outputStr);
     output_.insertAdjacentHTML('beforeEnd', outputStr);
 }
 

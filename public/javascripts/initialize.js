@@ -66,16 +66,18 @@ function getShopName(area) {
     // ホットペッパーAPIを呼び出す
     function getData() {
         return $.ajax({
-            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middole_area&name=' + area + '&count=40',
+            url: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=ef48d4a8cf540416&format=json&middle_area&name=' + area + '&count=40',
             type: "GET",
-            contentType: "application/json; charset=utf-8"
+            contentType: "application/json"
         });
     }
     getData().done(function(result) {
         var json = result.results[0];
         var temp = json.replace("</body></html>", "");
         var temp2 = temp.replace("<html><head/><body>", "");
-        var data = JSON.parse(temp2);
+	var temp3 = temp2.replace('駅2分♪NEW OPEN<毎日ok 円="円" 時間飲み放題="時間飲み放題">', '駅2分♪NEW OPEN<毎日OK!2時間飲み放題⇒980円>');
+	var temp4 = temp3.replace('</毎日ok>', "");
+        var data = JSON.parse(temp4);
         let iterable = data.results.shop;
         for (let value of iterable) {
             shopList.push(value.name);
