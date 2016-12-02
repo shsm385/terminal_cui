@@ -257,7 +257,7 @@ function su(args_first, output_ ,path, dir) {
 // show history function
 function history(output_) {
     var commands = sessionStorage.beforeCmd.split(",");
-    for (var i = 0; i < comands.length; i++) {
+    for (var i = 0; i < commands.length; i++) {
         output_.insertAdjacentHTML('beforeEnd', '<div>' + commands[i] + '</div>');
     }
 }
@@ -279,7 +279,7 @@ function cal(output_) {
     }
     myDate.setDate(1);
     var week = myDate.getDay();
-    var outputStr = '<div style="margin-left:3.5em">' + year + '年</div><div style="margin-left:4em">' + month + '月</div><div style="margin-left:' + (week + 2.5) + 'em">';
+    var outputStr = '<div style="margin-left:3.5em">' + year + '年</div><div style="margin-left:4em">' + month + '月</div><div style="margin-left:' + (week + 2) + 'em">';
     //for (var k = 0; k < week; k++){
     //  outputStr += "--- ";
     //}

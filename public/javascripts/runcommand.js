@@ -234,8 +234,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             var entries = [];
             for (let value of iterable){
                 if(value.hasOwnProperty('name')){
-                    var word = " " + value.name;
-                    if(word.indexOf(" " + key) != -1){
+                    var word = "  " + value.name;
+                    if(word.indexOf("  " + key) != -1){
                         count++;
                         entries.push(value.name);
                     }
@@ -263,8 +263,8 @@ function runCommand(e, node, output_, cmdLine_, CMDS_, dir, path) {
             var entries = [];
             var result;
             for(let value of iterable[1]){
-                var word = " " + value;
-                if(word.indexOf(" " + key) != -1){
+                var word = "  " + value;
+                if(word.indexOf("  " + key) != -1){
                     count++;
                     entries.push(value);
                 }
